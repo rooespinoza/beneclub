@@ -1,4 +1,4 @@
-import '../styles/globals.css'
+import './../public/reset.css'
 import { useRouter } from 'next/router'
 import Layout from './../components/Layout'
 import { Fragment } from 'react'
