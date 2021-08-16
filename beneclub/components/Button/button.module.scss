@@ -34,12 +34,17 @@ button {
         height: 40px;
         font-size: 16px;
       color:white;
-        font-weight: 900;
-        
+        font-weight: 900;        
       box-sizing: border-box;
         font-family: "Overlock", cursive;
         transition: all 0.6s cubic-bezier(0.01, 1.69, 0.99, 0.94);
     }
+    &.secondary:hover {
+      background-color: rgba(white, 0.2);
+    }
+    &.primary:active{
+      background-color: rgba($primaryActive, 0.4);
+  }
 }
 
 @media (max-width:1540px){

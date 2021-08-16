@@ -24,7 +24,7 @@
     background-size: cover;
     width: 100%;
     box-sizing: border-box;
-    height: 770px;
+    height: 650px;
     padding: 230px $padding 0px $padding;
 }
 .sumate__text{
@@ -35,6 +35,13 @@
     h2{
        margin-bottom: 25px;
     }
+}
+.sumate__buttons{
+    margin-top: 55px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 @media (max-width:1540px){
     .title__container{

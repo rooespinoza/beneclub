@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import React, { Fragment } from 'react'
+import Button from '../components/Button'
 import styles from './../pages/Home/home.module.scss'
 
 const Home = () => {
@@ -15,6 +16,10 @@ const Home = () => {
         <div className={styles.sumate__text}>
           <h2>Sumate a Andes Salud</h2>
           Te brindamos salud y motivos para estar saludable.
+          <div className={styles.sumate__buttons}>
+            <Button secondary type="button">Conocé Andes Salud</Button>
+            <Button secondary type="button">Quiero asociarme</Button>
+          </div>
         </div>        
       </div>
     </Fragment>
