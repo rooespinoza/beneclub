@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.beneclub.main.service.IBaseService;
 
+
 public class BaseController <E, S extends IBaseService<E>> {
 	@Autowired
 	protected S service;
-
 	@GetMapping("/")
 	public ResponseEntity<?> getAll(@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "60") int size) {

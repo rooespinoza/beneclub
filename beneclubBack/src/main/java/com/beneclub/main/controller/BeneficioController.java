@@ -23,8 +23,8 @@ import com.beneclub.main.service.BeneficioService;
 
 
 @RestController
-@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
-        RequestMethod.DELETE})
+@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+		RequestMethod.DELETE, RequestMethod.OPTIONS })
 @RequestMapping(path = "beneclub/beneficios")
 public class BeneficioController extends BaseController<Beneficio, BeneficioService> {
 

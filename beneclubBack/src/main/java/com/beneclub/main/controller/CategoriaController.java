@@ -11,11 +11,10 @@ import com.beneclub.main.entity.Categoria;
 import com.beneclub.main.service.CategoriaService;
 
 
-
 @RestController
-@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.OPTIONS,
         RequestMethod.DELETE})
-@RequestMapping(path = "beneclub/categorias")
+@RequestMapping(path = "/categorias")
 public class CategoriaController extends BaseController<Categoria, CategoriaService>{
 	 @Autowired
 	    private final JdbcTemplate jdbcTemplate = new JdbcTemplate();

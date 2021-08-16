@@ -2,7 +2,10 @@ package com.beneclub.main.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -12,7 +15,9 @@ import javax.persistence.Table;
 @Table(name = "beneclub_beneficios")
 public class Beneficio implements Serializable{
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(nullable = false)
 	private String name;
 	@ManyToOne
     @JoinColumn(name = "idCategoria", nullable = false, updatable = false)
@@ -22,10 +27,13 @@ public class Beneficio implements Serializable{
 	private String latitud;
 	private String longitud;
 	private String direccion;
+	@Column(nullable = false, columnDefinition = "boolean default false")
 	private boolean baja;
 	private String image;
+	private String descuento;
+
 	public Beneficio(Long id, String name, Categoria categoria, String provincia, String descripcion, String latitud,
-			String longitud, String direccion, boolean baja, String image) {
+			String longitud, String direccion, boolean baja, String image, String descuento) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -37,8 +45,9 @@ public class Beneficio implements Serializable{
 		this.direccion = direccion;
 		this.baja = baja;
 		this.image = image;
+		this.descuento = descuento;
 	}
-	
+
 	public Beneficio() {
 		super();
 	}
@@ -103,6 +112,14 @@ public class Beneficio implements Serializable{
 	}
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public String getDescuento() {
+		return descuento;
+	}
+
+	public void setDescuento(String descuento) {
+		this.descuento = descuento;
 	}
 	
 	

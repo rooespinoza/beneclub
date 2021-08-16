@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import React, { Fragment } from 'react'
+import Beneficios from '../components/Beneficios'
 import Button from '../components/Button'
 import Preguntas from '../components/Preguntas'
 import styles from './../pages/Home/home.module.scss'
@@ -11,7 +12,7 @@ const Home = () => {
         <div className={styles.title}><h1>Los mejores beneficios, en un solo lugar</h1></div>
       </div>
       <div className={styles.beneficios__container}>
-        beneficios
+      <Beneficios/>
       </div>
       <div className={styles.sumate__container} id="asociarme">
         <div className={styles.sumate__text}>
