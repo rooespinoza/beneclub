@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import styles from './topBar.module.scss'
 import Image from 'next/image'
+import Button from './../Button'
 import Link from 'next/link'
 const TopBar = () => {
     const [width, setWidth] = useState()
@@ -38,8 +39,9 @@ const TopBar = () => {
                 <Link href="/#asociarme">
                     <a>
                         <div className={styles.menu__item}>
-                            Quiero asociarme
-                            <div className={styles["menu__item--selected"]}></div>
+                            <Button primary type="button">
+                                Quiero asociarme
+                            </Button>
                         </div>
                     </a>
                 </Link>
@@ -52,11 +54,15 @@ const TopBar = () => {
     }
     return (
         <div className={styles.container}>
-            <Image
-                src='/images/beneclub.svg'
-                width={logoWidth}
-                height={logoHeight}
-            />
+            <Link href="/#">
+                <a>
+                    <Image
+                        src='/images/beneclub.svg'
+                        width={logoWidth}
+                        height={logoHeight}
+                    />
+                </a>
+            </Link>
             {width <= 769 ?
                 <div className={styles.menu__hamburguer} onClick={toggleMenu}>
                     <Image
