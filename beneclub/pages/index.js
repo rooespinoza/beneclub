@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import React, { Fragment } from 'react'
 import Button from '../components/Button'
+import Preguntas from '../components/Preguntas'
 import styles from './../pages/Home/home.module.scss'
 
 const Home = () => {
@@ -22,6 +23,7 @@ const Home = () => {
           </div>
         </div>        
       </div>
+      <Preguntas/>
     </Fragment>
   )
 }
