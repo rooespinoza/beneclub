@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react'
 import Head from '../../components/head'
 import { useRouter } from 'next/router'
 import TopBar from '../TopBar'
+import Footer from './../Footer/index';
 
 const Layout = ({ children, path }) => {
   const Router = useRouter()
@@ -19,6 +20,7 @@ const Layout = ({ children, path }) => {
             <Head title={renderTitle()} />
             <TopBar/>
             {children}
+            <Footer/>
         </div>
   )
 }
