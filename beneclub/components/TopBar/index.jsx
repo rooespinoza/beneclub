@@ -5,11 +5,11 @@ import Link from 'next/link'
 const TopBar = () => {
     const [width, setWidth] = useState()
     const [isExtended, setIsExtended] = useState(false)
-    const [logoWidth,setLogoWidth] = useState(120)
-    const [logoHeight,setLogoHeight] =useState(75)
+    const [logoWidth, setLogoWidth] = useState(120)
+    const [logoHeight, setLogoHeight] = useState(75)
     useEffect(() => {
         setWidth(window.innerWidth)
-        if(window.innerWidth<=769){
+        if (window.innerWidth <= 769) {
             setLogoWidth(90);
             setLogoHeight(45)
         }
@@ -19,18 +19,30 @@ const TopBar = () => {
     const renderMenu = () => {
         return (
             <div className={styles.menu}>
-                <div className={styles.menu__item}>
-                    Beneficios
-                    <div className={styles["menu__item--selected"]}></div>
-                </div>
-                <div className={styles.menu__item}>
-                    Preguntas frecuentes
-                    <div className={styles["menu__item--selected"]}></div>
-                </div>
-                <div className={styles.menu__item}>
-                    Quiero asociarme
-                    <div className={styles["menu__item--selected"]}></div>
-                </div>
+                <Link href="/#beneficios">
+                    <a>
+                        <div className={styles.menu__item}>
+                            Beneficios
+                            <div className={styles["menu__item--selected"]}></div>
+                        </div>
+                    </a>
+                </Link>
+                <Link href="/#preguntas">
+                    <a>
+                        <div className={styles.menu__item}>
+                            Preguntas frecuentes
+                            <div className={styles["menu__item--selected"]}></div>
+                        </div>
+                    </a>
+                </Link>
+                <Link href="/#asociarme">
+                    <a>
+                        <div className={styles.menu__item}>
+                            Quiero asociarme
+                            <div className={styles["menu__item--selected"]}></div>
+                        </div>
+                    </a>
+                </Link>
                 <div className={styles.menu__item}>
                     Adherir mi negocio
                     <div className={styles["menu__item--selected"]}></div>
@@ -45,7 +57,7 @@ const TopBar = () => {
                 width={logoWidth}
                 height={logoHeight}
             />
-            {width<=769?
+            {width <= 769 ?
                 <div className={styles.menu__hamburguer} onClick={toggleMenu}>
                     <Image
                         src='/images/hamburguer.svg'
@@ -54,7 +66,7 @@ const TopBar = () => {
                     />
                     {isExtended ?
                         <Fragment>{renderMenu()}</Fragment> : <Fragment></Fragment>}
-                </div> 
+                </div>
                 :
                 <Fragment>{renderMenu()}</Fragment>
             }

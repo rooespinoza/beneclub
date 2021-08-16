@@ -11,7 +11,7 @@ const Home = () => {
       <div className={styles.beneficios__container}>
         beneficios
       </div>
-      <div className={styles.sumate__container}>
+      <div className={styles.sumate__container} id="asociarme">
         <div className={styles.sumate__text}>
           <h2>Sumate a Andes Salud</h2>
           Te brindamos salud y motivos para estar saludable.
