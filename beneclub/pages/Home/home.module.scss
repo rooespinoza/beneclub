@@ -44,56 +44,114 @@
     justify-content: center;
 }
 @media (max-width:1540px){
+    .title__container,.sumate__container{
+        padding-left:200px;
+        padding-right:200px;
+    }   
     .title__container{
-        padding: 550px 200px 0px 200px;
-    }    
+        padding-top: 550px;
+    } 
     .title{
         margin-left: 33%;
     }
 }
 @media (max-width:1280px){
-    .title__container{
+    .title__container,.sumate__container{
+        padding-left:110px;
+        padding-right:110px;
+    }  
+    .title__container{        
         height: 700px;
-        padding: 450px 110px 0px 110px;
+        padding-top: 450px;
+    } 
+    .sumate__text{
+        width: 60%;
     }
 }
 @media (max-width: 1025px) {
     .title__container{
+        padding-top: 350px;
+        height: 500px;        
         background-position-y: 50px;
-        padding: 350px 110px 0px 110px;
-       height: 500px;
-    }
+    } 
 }
 @media (max-width: 769px) {
     .title__container{
+        padding-top: 250px;
         height: 400px;
-        padding: 250px 110px 0px 110px;
     }
     .title{
         margin-left: 0%;
         width: 100%;
     }
+    .sumate__container{
+        height: 500px;
+        padding-top: 150px;
+    }
+    .sumate__text{
+        width: 70%;
+        font-size: 22px;
+    }
+    .sumate__buttons{
+        margin-top: 30px;
+    }
 }
 @media (max-width: 640px) {
+    .title__container,.sumate__container{
+        padding-left:90px;
+        padding-right:90px;
+    }  
     .title__container{
-        padding: 280px 90px 0px 90px;        
+        padding-top: 280px;
         background-position-x: -60px;
     }
     .title{
         text-align: left;
     }
+    .sumate__text{
+        width: 80%;
+    }
 
 }
 @media (max-width: 426px) {
+    .title__container,.sumate__container{
+        padding-left:50px;
+        padding-right:50px;
+    }  
     .title__container{
-        padding: 250px 50px 0px 50px;
+        padding-top: 250px;
         height: 360px;
     }
-
+    .sumate__container{
+        background-position: right;
+        background-position-x:-550px;
+        padding-top: 250px;
+    }
+    .sumate__text{
+        width: 100%;
+    }
     }
 @media (max-width: 360px) {
-    .title__container{
-        padding: 250px 30px 0px 30px;
+    .title__container,.sumate__container{
+        padding-left:30px;
+        padding-right:30px;
+    }  
+    .sumate__container{
+        background-position: right;
+        background-position-x:-600px;
+        padding-top: 250px;
+    }
+    .sumate__text{
+        h2{
+            margin-bottom: 15px;
+         }
+    }
+    .sumate__buttons{
+        margin-top: 15px;
+        flex-direction: column;
+        button{
+            width: 90%;
+        }
     }
 }
 @media (max-width: 320px) {
