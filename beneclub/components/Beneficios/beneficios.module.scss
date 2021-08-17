@@ -28,6 +28,11 @@
 .beneficios__list{
     margin-top: 30px;
     margin-bottom: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
 }
 @media (max-width:1540px){
     .container{

@@ -3,8 +3,15 @@ import FiltroCategoria from '../FiltroCategoria'
 import styles from './beneficios.module.scss'
 import { getCategorias } from './../../utils/fetches'
 import Image from 'next/image'
+import BeneficioCard from '../BeneficioCard'
 const Beneficios = () => {
   const [categorias, setCategorias] = useState([])
+  const [beneficio,setBeneficio] = useState({
+    name:"Plus pet",
+    descuento:"20%",
+    image:"pluspet.jpg",
+    categoria:"Salud"
+  })
   useEffect(async () => {
     if (categorias.length === 0) {
       //const aux = await getCategorias()
@@ -51,7 +58,12 @@ const Beneficios = () => {
         </form>
       </div>
       <div className={styles.beneficios__list}>
-fgfdgd
+        <BeneficioCard beneficio={beneficio}/>
+        <BeneficioCard beneficio={beneficio}/>
+        <BeneficioCard beneficio={beneficio}/>
+        <BeneficioCard beneficio={beneficio}/>
+        <BeneficioCard beneficio={beneficio}/>
+        <BeneficioCard beneficio={beneficio}/>
       </div>
     </div>
   )
