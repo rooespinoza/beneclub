@@ -1,27 +1,25 @@
 import React, { useState, Fragment, useEffect } from 'react'
 import FiltroCategoria from '../FiltroCategoria'
 import styles from './beneficios.module.scss'
-import { getCategorias } from './../../utils/fetches'
+import { getBeneficios, getCategorias } from './../../utils/fetches'
 import Image from 'next/image'
 import BeneficioCard from '../BeneficioCard'
 const Beneficios = () => {
   const [categorias, setCategorias] = useState([])
-  const [beneficio,setBeneficio] = useState({
-    name:"Plus pet",
-    descuento:"20%",
-    image:"pluspet.jpg",
-    categoria:"Salud"
-  })
+  const [beneficios,setBeneficios] = useState([])
   useEffect(async () => {
     if (categorias.length === 0) {
       const aux = await getCategorias()
-       console.log(aux)       
        setCategorias(aux)
+    }
+    if(beneficios.length === 0){
+      const aux = await getBeneficios()
+      setBeneficios(aux)
     }
   }, [])
   const provinces = [
     {
-      nombre: ''
+      nombre: 'Provincia'
     },
     {
       nombre: 'San Luis'
@@ -56,12 +54,7 @@ const Beneficios = () => {
         </form>
       </div>
       <div className={styles.beneficios__list}>
-        <BeneficioCard beneficio={beneficio}/>
-        <BeneficioCard beneficio={beneficio}/>
-        <BeneficioCard beneficio={beneficio}/>
-        <BeneficioCard beneficio={beneficio}/>
-        <BeneficioCard beneficio={beneficio}/>
-        <BeneficioCard beneficio={beneficio}/>
+        {beneficios.map((beneficio)=><BeneficioCard key={beneficio.id} beneficio={beneficio}/>)}
       </div>
     </div>
   )
