@@ -14,10 +14,10 @@ const Beneficios = () => {
   })
   useEffect(async () => {
     if (categorias.length === 0) {
-      //const aux = await getCategorias()
-      //  console.log(aux)
+      const aux = await getCategorias()
+       console.log(aux)       
+       setCategorias(aux)
     }
-
   }, [])
   const provinces = [
     {
@@ -43,9 +43,7 @@ const Beneficios = () => {
     <div className={styles.container}>
       <div className={styles.filtros}>
         <div className={styles.categorias}>
-          <FiltroCategoria image="/images/salud.svg" name="Salud"></FiltroCategoria>
-          <FiltroCategoria image="/images/alimentacion.svg" name="Alimentación saludable"></FiltroCategoria>
-          <FiltroCategoria image="/images/aireLibre.svg" name="Aire libre y Deporte"></FiltroCategoria>
+          {categorias.map((categoria)=>(<FiltroCategoria key={categoria.id} image={`/images/${categoria.image}`} name={categoria.name}/>))}
         </div>
         <form className={styles.buscador}>
           <select name='provincia' onChange={handleProvinciaChange}>
