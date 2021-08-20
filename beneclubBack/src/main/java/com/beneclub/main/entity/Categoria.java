@@ -24,6 +24,7 @@ public class Categoria implements Serializable{
 	@Column(nullable = false)
 	private String name;
 	@OneToMany(targetEntity=Beneficio.class, mappedBy="categoria", fetch=FetchType.EAGER)
+	@JsonIgnore
 	private List<Beneficio> beneficios;
 	@Column(nullable = false, columnDefinition = "boolean default false")
 	private boolean baja;
