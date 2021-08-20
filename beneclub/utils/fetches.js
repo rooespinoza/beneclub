@@ -4,7 +4,8 @@ import axios from 'axios'
       baseURL:'http://localhost:9001/',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': false
       },
   })
 

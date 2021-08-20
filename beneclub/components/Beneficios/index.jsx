@@ -54,7 +54,7 @@ const Beneficios = () => {
         </form>
       </div>
       <div className={styles.beneficios__list}>
-        {beneficios.map((beneficio)=><BeneficioCard key={beneficio.id} beneficio={beneficio}/>)}
+        {beneficios.map((b)=><BeneficioCard key={b.id} beneficio={b}/>)}
       </div>
     </div>
   )
