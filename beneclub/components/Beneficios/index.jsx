@@ -1,22 +1,26 @@
 import React, { useState, Fragment, useEffect } from 'react'
 import FiltroCategoria from '../FiltroCategoria'
 import styles from './beneficios.module.scss'
-import { getBeneficios, getCategorias } from './../../utils/fetches'
+import { getBeneficios, getCategorias,getBeneficiosXCategorias } from './../../utils/fetches'
 import Image from 'next/image'
 import BeneficioCard from '../BeneficioCard'
 const Beneficios = () => {
   const [categorias, setCategorias] = useState([])
-  const [beneficios,setBeneficios] = useState([])
+  const [beneficios, setBeneficios] = useState([])
+  const [categoriaSelected, setCategoriaSelected] = useState()
   useEffect(async () => {
     if (categorias.length === 0) {
       const aux = await getCategorias()
-       setCategorias(aux)
+      setCategorias(aux)
     }
-    if(beneficios.length === 0){
+    if (beneficios.length === 0) {
       const aux = await getBeneficios()
       setBeneficios(aux)
     }
   }, [])
+  useEffect(async () => {
+    getBeneficiosXCategorias(categoriaSelected)
+  }, [categoriaSelected])
   const provinces = [
     {
       nombre: 'Provincia'
@@ -37,11 +41,12 @@ const Beneficios = () => {
   const handleSearchChange = (e) => {
     console.log(e.target.value)
   }
+
   return (
     <div className={styles.container}>
       <div className={styles.filtros}>
         <div className={styles.categorias}>
-          {categorias.map((categoria)=>(<FiltroCategoria key={categoria.id} image={`/images/${categoria.image}`} name={categoria.name}/>))}
+          {categorias.map((categoria) => (<FiltroCategoria key={categoria.idCategoria} id={categoria.idCategoria} image={`/images/${categoria.image}`} name={categoria.name} selectCategoria={setCategoriaSelected} />))}
         </div>
         <form className={styles.buscador}>
           <select name='provincia' onChange={handleProvinciaChange}>

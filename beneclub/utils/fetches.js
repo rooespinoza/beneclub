@@ -27,3 +27,13 @@ import axios from 'axios'
         throw e.response ? new Error(e.response.data.message) : new Error(e.message)
     }
   }
+
+  export const getBeneficiosXCategorias = async(id)=>{
+    try {
+        const response = await apiBeneclub.get('/beneficios/')
+        console.log(response)
+        return response.data._embedded.beneficios;
+    }catch (e) {
+        throw e.response ? new Error(e.response.data.message) : new Error(e.message)
+    }
+  }
