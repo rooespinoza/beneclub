@@ -19,9 +19,8 @@ import axios from 'axios'
 
   export const getBeneficios = async()=>{
     try {
-        const response = await apiBeneclub.get('/beneficios/')
-        console.log(response)
-        return response.data._embedded.beneficios;
+        const response = await apiBeneclub.get('beneclub/beneficios/')
+        return response.data;
     }catch (e) {
         throw e.response ? new Error(e.response.data.message) : new Error(e.message)
     }
@@ -29,9 +28,8 @@ import axios from 'axios'
 
   export const getBeneficiosXCategorias = async(id)=>{
     try {
-        const response = await apiBeneclub.get('/beneficios/')
-        console.log(response)
-        return response.data._embedded.beneficios;
+        const response = await apiBeneclub.get('beneclub/beneficios/beneficioXCategoria/'+id)
+        return response.data;
     }catch (e) {
         throw e.response ? new Error(e.response.data.message) : new Error(e.message)
     }
