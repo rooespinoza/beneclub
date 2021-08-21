@@ -20,20 +20,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.beneclub.main.entity.Beneficio;
+import com.beneclub.main.entity.Categoria;
 import com.beneclub.main.service.BeneficioService;
-
-import ebs.back.entity.ArticuloManufacturado;
-import ebs.back.entity.Insumo;
-import ebs.back.entity.Receta;
-import ebs.back.entity.Stock;
-
 
 
 
 @RestController
 @CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
 		RequestMethod.DELETE, RequestMethod.OPTIONS })
-@RequestMapping(path = "beneclub/beneficios")
+@RequestMapping(path = "/beneficios")
 public class BeneficioController extends BaseController<Beneficio, BeneficioService> {
 
     @Autowired
@@ -62,26 +57,25 @@ public class BeneficioController extends BaseController<Beneficio, BeneficioServ
     @GetMapping("/beneficioXCategoria/{id}")
     public List<Beneficio> getFiltradoCategoria(@PathVariable Long id) {
     	return this.jdbcTemplate.query(
-                "SELECT r.cantidadInsumo, i.idInsumo, i.denominacion, i.unidadMedida, s.actual "
-                        + "FROM Stock s INNER JOIN Insumo i ON s.idStock = i.idStock INNER JOIN Receta r ON i.idInsumo = r.idInsumo WHERE r.idManufacturado = "
-                        + id,
-
+    			"SELECT * FROM beneclub.beneclub_beneficios where idCategoria ="+id ,
                 (rs, rowNum) -> {
                     Beneficio beneficio = new Beneficio();
-                    beneficio.setId(id);
-                    receta.setCantidadInsumo(rs.getFloat("r.cantidadInsumo"));
-
-                    Insumo insumo = new Insumo();
-                    insumo.setIdInsumo(rs.getLong("i.idInsumo"));
-                    insumo.setDenominacion(rs.getString("i.denominacion"));
-                    insumo.setUnidadMedida(rs.getString("i.unidadMedida"));
-
-                    Stock stock = new Stock();
-                    stock.setActual(rs.getFloat("s.actual"));
-
-                    insumo.setStock(stock);
-                    receta.setInsumo(insumo);
-
-                    return receta;
+                    beneficio.setId(rs.getLong("id"));
+                    beneficio.setBaja(rs.getBoolean("baja"));
+                    beneficio.setDescripcion(rs.getString("descripcion"));
+                    beneficio.setDireccion(rs.getString("direccion"));
+                    beneficio.setDescuento(rs.getString("descuento"));
+                    beneficio.setImage(rs.getString("image"));
+                    beneficio.setLatitud(rs.getString("latitud"));
+                    beneficio.setLongitud(rs.getString("longitud"));
+                    beneficio.setName(rs.getString("name"));
+                    beneficio.setProvincia(rs.getString("provincia"));
+                    
+                    Categoria categoria = new Categoria();
+                    categoria.setIdCategoria(rs.getLong("idCategoria"));
+                    
+                    beneficio.setCategoria(categoria);
+                    return beneficio;
                 });
+    	}
 }

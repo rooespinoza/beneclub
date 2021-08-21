@@ -19,7 +19,10 @@ const Beneficios = () => {
     }
   }, [])
   useEffect(async () => {
-    getBeneficiosXCategorias(categoriaSelected)
+    if(categoriaSelected){
+      const aux = await getBeneficiosXCategorias(categoriaSelected)
+      setBeneficios(aux)
+    }
   }, [categoriaSelected])
   const provinces = [
     {
@@ -41,7 +44,6 @@ const Beneficios = () => {
   const handleSearchChange = (e) => {
     console.log(e.target.value)
   }
-
   return (
     <div className={styles.container}>
       <div className={styles.filtros}>
@@ -59,7 +61,12 @@ const Beneficios = () => {
         </form>
       </div>
       <div className={styles.beneficios__list}>
-        {beneficios.map((beneficio) => <BeneficioCard key={beneficio.id} beneficio={beneficio} />)}
+        {beneficios.length != 0 ? 
+          <Fragment>{beneficios.map((beneficio) => <BeneficioCard key={beneficio.id} beneficio={beneficio} />)}</Fragment> 
+          :
+          <Fragment><p>Estamos cargando los beneficios</p></Fragment>
+        }
+        
       </div>
     </div>
   )
