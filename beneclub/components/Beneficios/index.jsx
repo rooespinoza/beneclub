@@ -41,12 +41,12 @@ const Beneficios = () => {
   const handleSearchChange = (e) => {
     console.log(e.target.value)
   }
-
+console.log(categorias)
   return (
     <div className={styles.container}>
       <div className={styles.filtros}>
         <div className={styles.categorias}>
-          {categorias.map((categoria) => (<FiltroCategoria key={categoria.idCategoria} id={categoria.idCategoria} image={`/images/${categoria.image}`} name={categoria.name} selectCategoria={setCategoriaSelected} />))}
+          { categorias.map((categoria) => (<FiltroCategoria key={categoria.idCategoria} id={categoria.idCategoria} image={`/images/${categoria.image}`} name={categoria.name} selectCategoria={setCategoriaSelected} />))}
         </div>
         <form className={styles.buscador}>
           <select name='provincia' onChange={handleProvinciaChange}>
