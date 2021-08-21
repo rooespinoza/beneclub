@@ -39,7 +39,6 @@ import axios from 'axios'
   export const getBeneficiosXProvincia = async(provincia)=>{
     try {
         const response = await apiBeneclub.get('/beneficios/beneficioXProvincia/'+provincia)
-        console.log(response.data)
         return response.data;
     }catch (e) {
         throw e.response ? new Error(e.response.data.message) : new Error(e.message)

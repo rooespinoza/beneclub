@@ -3,6 +3,7 @@ import styles from './beneficioCard.module.scss'
 import Image from 'next/image'
 
 const BeneficioCard = ({beneficio})=>{
+    console.log(beneficio)
     if(beneficio){
         return(
             <div className={styles.container}>
