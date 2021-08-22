@@ -55,18 +55,48 @@ color:$primaryColor;
 
 }
 @media (max-width:1280px){
-  
+    .text__descuento{
+        font-size: 45px;
+    }
 }
 @media (max-width: 1025px) {
- 
+    .text__descuento{
+        font-size: 40px;
+    }
+    .container{
+        width: 45%;
+    }
 }
 @media (max-width: 769px) {
-
+    .container{
+        width: 100%;
+    }
 }
 @media (max-width: 640px) {
+    .container{
+        padding: 0 90px;
+        width: 100%;
+        box-shadow: none;
+        border-radius: 0px;
+        border-bottom: 1px $greyColor solid;
+        background-color: transparent;
+    }
+    .container:hover{
+        margin-top: 0;
+    }
+    .image{
+        width: 120px;
+        height: 120px;
+    }
+    .text__negocio{
+        max-height: 50px;
+        height: 20px;
+    }
 }
 @media (max-width: 426px) {
-
+    .container{
+        padding: 0 50px;
+    }
     }
 @media (max-width: 360px) {
 

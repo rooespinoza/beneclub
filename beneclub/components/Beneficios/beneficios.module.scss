@@ -86,26 +86,37 @@
 }
 @media (max-width: 640px) {
     .container{
-        padding-left:90px;
-        padding-right:90px;
+        padding-left:0px;
+        padding-right:0px;
         margin-top: -20px;
     }  
     .search_imagen{
         margin-left: 410px;
     }
+    .filtros{
+        
+        padding-left:90px;
+        padding-right:90px;
+    }
 }
 @media (max-width: 426px) {
-    .container{
+    .filtros{
         padding-left:50px;
-        padding-right:50px;
-    }  
+        padding-right:50px;      
+    } 
+    .categoriasContainer{
+        overflow: scroll;
+    }
+    .categoriasContainer::-webkit-scrollbar{        
+        height: 0px;
+    }
     .search_imagen{
         margin-left: 290px;
     }
  
     }
 @media (max-width: 360px) {
-    .container{
+    .filtros{
         padding-left:30px;
         padding-right:30px;
     }  

@@ -122,6 +122,9 @@ a {
       }
 }
 @media (max-width: 640px) {
+  body {
+    background-color: white;
+  }
     h1{
         font-size:40px;
       }
