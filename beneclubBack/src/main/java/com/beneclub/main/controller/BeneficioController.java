@@ -57,22 +57,53 @@ public class BeneficioController extends BaseController<Beneficio, BeneficioServ
     @GetMapping("/beneficioXCategoria/{id}")
     public List<Beneficio> getFiltradoCategoria(@PathVariable Long id) {
     	return this.jdbcTemplate.query(
-    			"SELECT * FROM beneclub.beneclub_beneficios where idCategoria ="+id ,
+    			"SELECT * FROM beneclub.beneclub_beneficios b INNER JOIN beneclub_categorias c on b.idCategoria=c.idCategoria where b.idCategoria ="+id ,
                 (rs, rowNum) -> {
                     Beneficio beneficio = new Beneficio();
-                    beneficio.setId(rs.getLong("id"));
-                    beneficio.setBaja(rs.getBoolean("baja"));
-                    beneficio.setDescripcion(rs.getString("descripcion"));
-                    beneficio.setDireccion(rs.getString("direccion"));
-                    beneficio.setDescuento(rs.getString("descuento"));
-                    beneficio.setImage(rs.getString("image"));
-                    beneficio.setLatitud(rs.getString("latitud"));
-                    beneficio.setLongitud(rs.getString("longitud"));
-                    beneficio.setName(rs.getString("name"));
-                    beneficio.setProvincia(rs.getString("provincia"));
+                    beneficio.setId(rs.getLong("b.id"));
+                    beneficio.setBaja(rs.getBoolean("b.baja"));
+                    beneficio.setDescripcion(rs.getString("b.descripcion"));
+                    beneficio.setDireccion(rs.getString("b.direccion"));
+                    beneficio.setDescuento(rs.getString("b.descuento"));
+                    beneficio.setImage(rs.getString("b.image"));
+                    beneficio.setLatitud(rs.getString("b.latitud"));
+                    beneficio.setLongitud(rs.getString("b.longitud"));
+                    beneficio.setName(rs.getString("b.name"));
+                    beneficio.setProvincia(rs.getString("b.provincia"));
                     
                     Categoria categoria = new Categoria();
-                    categoria.setIdCategoria(rs.getLong("idCategoria"));
+                    categoria.setIdCategoria(rs.getLong("c.idCategoria"));
+                    categoria.setName(rs.getString("c.name"));
+                    categoria.setImage(rs.getString("c.image"));
+                    categoria.setBaja(rs.getBoolean("c.baja"));
+                    
+                    beneficio.setCategoria(categoria);
+                    return beneficio;
+                });
+    	}
+    
+    @GetMapping("/beneficioXProvincia/{provincia}")
+    public List<Beneficio> getFiltradoProvincia(@PathVariable("provincia") String provincia) {
+    	return this.jdbcTemplate.query(
+    			"SELECT * FROM beneclub.beneclub_beneficios b INNER JOIN beneclub_categorias c on b.idCategoria=c.idCategoria where b.provincia = '"+provincia +"'" ,
+                (rs, rowNum) -> {
+                    Beneficio beneficio = new Beneficio();
+                    beneficio.setId(rs.getLong("b.id"));
+                    beneficio.setBaja(rs.getBoolean("b.baja"));
+                    beneficio.setDescripcion(rs.getString("b.descripcion"));
+                    beneficio.setDireccion(rs.getString("b.direccion"));
+                    beneficio.setDescuento(rs.getString("b.descuento"));
+                    beneficio.setImage(rs.getString("b.image"));
+                    beneficio.setLatitud(rs.getString("b.latitud"));
+                    beneficio.setLongitud(rs.getString("b.longitud"));
+                    beneficio.setName(rs.getString("b.name"));
+                    beneficio.setProvincia(rs.getString("b.provincia"));
+                    
+                    Categoria categoria = new Categoria();
+                    categoria.setIdCategoria(rs.getLong("c.idCategoria"));
+                    categoria.setName(rs.getString("c.name"));
+                    categoria.setImage(rs.getString("c.image"));
+                    categoria.setBaja(rs.getBoolean("c.baja"));                    
                     
                     beneficio.setCategoria(categoria);
                     return beneficio;

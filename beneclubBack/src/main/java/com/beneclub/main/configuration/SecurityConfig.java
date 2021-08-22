@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -14,8 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
-	@Bean
-	
+	@Bean	
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source =
                 new UrlBasedCorsConfigurationSource();
@@ -27,6 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
+
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
 		http = http.cors().and().csrf().disable();
@@ -45,8 +46,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 )
                 .and();
 
-        http.authorizeRequests()
+   /*     http.authorizeRequests()
                 .antMatchers("/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/categorias").permitAll();}
+                .antMatchers(HttpMethod.GET, "/categorias").permitAll();*/
+	}
+	@Bean
+	public BCryptPasswordEncoder bcryptPasswordEncoder(){
+	return new BCryptPasswordEncoder();
+	}
 	}
 
