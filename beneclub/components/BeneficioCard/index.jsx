@@ -20,7 +20,7 @@ const BeneficioCard = ({ beneficio }) => {
                     <div className={styles.text__container}>
                         <p><span className={styles.text__descuento}>{beneficio.descuento}</span></p>
                         <p><span className={styles.text__negocio}>{beneficio.name}</span></p>
-                        <p><span className={styles.text__categoria}>{beneficio.categoria}</span></p>
+                        <p><span className={styles.text__categoria}>{beneficio.categoria.name}</span></p>
                     </div>
                 </div>
                 <ModalComponent open={open} toogleModal={toogleModal} beneficio={beneficio}></ModalComponent>
