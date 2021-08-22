@@ -8,12 +8,12 @@ const BeneficioCard = ({beneficio})=>{
         return(
             <div className={styles.container}>
                 <div className={styles.image}>
-                <Image src="/images/beneficios/pluspet.jpg" width={170} height={170}/>
+                <Image src={`/images/beneficios/${beneficio.image}`} alt={beneficio.name} width={170} height={170}/>
                 </div>
                <div className={styles.text__container}>
                    <p><span className={styles.text__descuento}>{beneficio.descuento}</span></p>
-                   <p><span className={styles.text__negocio}>{beneficio.name}</span></p>
-                   <p><span className={styles.text__categoria}>{beneficio.categoria.name}</span></p>
+                   <div className={styles.text__negocio}>{beneficio.name}</div>
+                   <div className={styles.text__categoria}>{beneficio.categoria.name}</div>
                </div>
             </div>
         )
