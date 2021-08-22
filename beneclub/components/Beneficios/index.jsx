@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useEffect } from 'react'
 import FiltroCategoria from '../FiltroCategoria'
 import styles from './beneficios.module.scss'
-import { getBeneficios, getCategorias,getBeneficiosXCategorias } from './../../utils/fetches'
+import { getBeneficios, getCategorias,getBeneficiosXCategorias,getBeneficiosXProvincia } from './../../utils/fetches'
 import Image from 'next/image'
 import BeneficioCard from '../BeneficioCard'
 const Beneficios = () => {
@@ -38,8 +38,9 @@ const Beneficios = () => {
       nombre: 'Mendoza'
     }
   ]
-  const handleProvinciaChange = (e) => {
-    console.log(e.target.value);
+  const handleProvinciaChange = async(e) => {
+    const aux = await getBeneficiosXProvincia(e.target.value)
+    setBeneficios(aux)
   }
   const handleSearchChange = (e) => {
     console.log(e.target.value)
@@ -52,7 +53,7 @@ const Beneficios = () => {
         </div>
         <form className={styles.buscador}>
           <select name='provincia' onChange={handleProvinciaChange}>
-            {provinces.map((p, index) => { return (<option key={index}>{p.nombre}</option>) })}
+            {provinces.map((p, index) => { return (<option key={index} value={p.nombre}>{p.nombre}</option>) })}
           </select>
           <input name="busqueda" onChange={handleSearchChange} />
           <div className={styles.search_imagen}>
