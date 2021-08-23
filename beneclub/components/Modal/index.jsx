@@ -9,8 +9,17 @@ import image from 'next/image';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 
 const ModalComponent = ({ open, toogleModal, beneficio }) => {
-    //const classes = useStyles();
-    console.log(beneficio);
+    const [width,setWidht]=useState();
+    const [widthImage,setwidthImage]=useState('300');
+    const [heightImage,setheightImage]=useState(300);
+
+    useEffect(()=>{
+        setWidht(window.innerWidth)
+        if (window.innerWidth<=640){
+            setwidthImage(300)
+            setheightImage(300)
+        }
+    },[])
     return (
         <div>
             <Modal
@@ -27,6 +36,7 @@ const ModalComponent = ({ open, toogleModal, beneficio }) => {
             >
                 <Fade in={open}>
                     <div className={styles.canvas}>
+                        {width>640?
                         <div className={styles.headerModal}>
                             <div className={styles.catBeneficio}>
                                 {beneficio.categoria.name}
@@ -35,19 +45,38 @@ const ModalComponent = ({ open, toogleModal, beneficio }) => {
                                 <Image src='/images/cerrar.svg' width={15} height={15}></Image>
                             </div>
                         </div>
+                        :<Fragment></Fragment>}
                         <div className={styles.bodyModal}>
                             <div className={styles.contBeneficio}>
-                                <Image src={`/images/beneficios/${beneficio.image}`} width={300} height={300}></Image>
+                                {width<=640 ?
+                                <Image src={`/images/beneficios/${beneficio.image}`} width={widthImage} height={heightImage} layout='responsive'></Image>
+                                :<Image src={`/images/beneficios/${beneficio.image}`} width={widthImage} height={heightImage}></Image>}
+                                {width>=640 ? 
+                                <div className={styles.closeButton} onClick={toogleModal}>
+                                    <Image src='/images/cerrar.svg' width={15} height={15}></Image>
+                                </div>
+                                :
+                                <Fragment></Fragment>}
                             </div>
                             <div className={styles.textBeneficio}>
+                                {width<=640 ?
+                                <div className={styles.catBeneficio}>
+                                {beneficio.categoria.name}
+                                </div>
+                                :<Fragment></Fragment>}
                                 <div className={styles.textCategoria}>{beneficio.name}</div>
                                 <div className={styles.textDescuento}>{beneficio.descuento}</div>
-                                <div className={styles.textCredencial}>Presentando tu credencial</div>
+                                {width>=640 ?
+                                    <div className={styles.textCredencial}>Presentando tu credencial</div>
+                                    :<Fragment></Fragment>}
                             </div>
                         </div>
                         <div className={styles.map}>
                                 
-                                    <iframe src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3349.751458138692!2d${beneficio.longitud}!3d${beneficio.latitud}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x967e094c11a23707%3A0xfe7682193dd0ad31!2sTupungato%20718%2C%20Mendoza!5e0!3m2!1ses-419!2sar!4v1629607728660!5m2!1ses-419!2sar`} width="600" height="450"  allowfullscreen="" loading="lazy"></iframe>
+                            <iframe src={beneficio.latitud} width="90%" height="300px"  allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                        <div className={styles.footerModal}>
+                            {beneficio.descripcion}  
                         </div>
                     </div>
                 </Fade>
