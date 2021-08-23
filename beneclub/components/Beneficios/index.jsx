@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useEffect } from 'react'
 import FiltroCategoria from '../FiltroCategoria'
 import styles from './beneficios.module.scss'
-import { getBeneficios, getCategorias,getBeneficiosXCategorias,getBeneficiosXProvincia } from './../../utils/fetches'
+import { getBeneficios, getCategorias, getBeneficiosXCategorias, getBeneficiosXProvincia } from './../../utils/fetches'
 import Image from 'next/image'
 import BeneficioCard from '../BeneficioCard'
 const Beneficios = () => {
@@ -19,10 +19,18 @@ const Beneficios = () => {
     }
   }, [])
   useEffect(async () => {
-    if(categoriaSelected){
-      const aux = await getBeneficiosXCategorias(categoriaSelected)
-      setBeneficios(aux)
+    if (categoriaSelected) {
+      console.log(categoriaSelected)
+      if (categoriaSelected == 0) {
+
+        const aux = await getBeneficios()
+        setBeneficios(aux)
+      } else {
+        const aux = await getBeneficiosXCategorias(categoriaSelected)
+        setBeneficios(aux)
+      }
     }
+
   }, [categoriaSelected])
   const provinces = [
     {
@@ -38,7 +46,7 @@ const Beneficios = () => {
       nombre: 'Mendoza'
     }
   ]
-  const handleProvinciaChange = async(e) => {
+  const handleProvinciaChange = async (e) => {
     const aux = await getBeneficiosXProvincia(e.target.value)
     setBeneficios(aux)
   }
@@ -48,8 +56,17 @@ const Beneficios = () => {
   return (
     <div className={styles.container}>
       <div className={styles.filtros}>
-        <div className={styles.categorias}>
-          { categorias.map((categoria) => (<FiltroCategoria key={categoria.idCategoria} id={categoria.idCategoria} image={`/images/${categoria.image}`} name={categoria.name} selectCategoria={setCategoriaSelected} />))}
+        <div className={styles.categoriasContainer}>
+          <div className={styles.categorias}>
+            {categorias.map((categoria) => (<FiltroCategoria key={categoria.idCategoria} id={categoria.idCategoria} image={`/images/${categoria.image}`} name={categoria.name} selectCategoria={setCategoriaSelected} />))}
+            {categoriaSelected != 0 ? <FiltroCategoria
+              key="0"
+              id="0"
+              image="/images/todo.svg"
+              name="Todo"
+              selectCategoria={setCategoriaSelected} />
+              : <Fragment></Fragment>}
+          </div>
         </div>
         <form className={styles.buscador}>
           <select name='provincia' onChange={handleProvinciaChange}>
@@ -62,12 +79,12 @@ const Beneficios = () => {
         </form>
       </div>
       <div className={styles.beneficios__list}>
-        {beneficios.length != 0 ? 
-          <Fragment>{beneficios.map((beneficio) => <BeneficioCard key={beneficio.id} beneficio={beneficio} />)}</Fragment> 
+        {beneficios.length != 0 ?
+          <Fragment>{beneficios.map((beneficio) => <BeneficioCard key={beneficio.id} beneficio={beneficio} />)}</Fragment>
           :
           <Fragment><p>Estamos cargando los beneficios</p></Fragment>
         }
-        
+
       </div>
     </div>
   )
