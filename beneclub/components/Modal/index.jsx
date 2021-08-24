@@ -51,7 +51,7 @@ const ModalComponent = ({ open, toogleModal, beneficio }) => {
                                 {width<=640 ?
                                 <Image src={`/images/beneficios/${beneficio.image}`} width={widthImage} height={heightImage} layout='responsive'></Image>
                                 :<Image src={`/images/beneficios/${beneficio.image}`} width={widthImage} height={heightImage}></Image>}
-                                {width>=640 ? 
+                                {width<=640 ? 
                                 <div className={styles.closeButton} onClick={toogleModal}>
                                     <Image src='/images/cerrar.svg' width={15} height={15}></Image>
                                 </div>

@@ -77,7 +77,7 @@
 }
 .map{
     margin-top: 20px;
-    width: 100%;
+    width: 110%;
     height: auto;
 }
 .footerModal{
@@ -117,7 +117,7 @@
         border-radius: 17px;
         img{
         margin-top: -100px !important;}
-        layout: responsive;
+        
     }
     .closeButton{
         position: absolute;
@@ -134,6 +134,7 @@
     }
     .map{
         padding-left: 25px;
+        width: 100%;
     }
     .footerModal{
         padding: 25px;
