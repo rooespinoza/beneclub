@@ -18,8 +18,8 @@ import com.beneclub.main.service.UsuarioService;
 
 
 @RestController
-@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
-        RequestMethod.DELETE})
+@CrossOrigin( methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+        RequestMethod.DELETE,RequestMethod.OPTIONS})
 @RequestMapping(path = "beneclub/usuario")
 public class UsuarioController extends BaseController<Usuario, UsuarioService>{
 	
@@ -44,7 +44,7 @@ public class UsuarioController extends BaseController<Usuario, UsuarioService>{
 	        }
 	    }*/
 	  @PostMapping("/login")
-	    public boolean login(@RequestParam String cuenta, @RequestParam String pass) throws Exception {
+	    public Usuario login(@RequestParam String cuenta, @RequestParam String pass) throws Exception {
 	        try {
 	            Usuario user = new Usuario();
 	            user = this.jdbcTemplate.queryForObject(
@@ -58,10 +58,11 @@ public class UsuarioController extends BaseController<Usuario, UsuarioService>{
 	                    });
 	            
 	            bCryptPasswordEncoder.matches(pass,user.getPassword());
-	            return true;
+	            System.out.println("fdsf");
+	            return user;
 
 	        } catch (Exception ex) {
-	            return false;
+	        	 throw ex;
 	        }
 	    }
 }

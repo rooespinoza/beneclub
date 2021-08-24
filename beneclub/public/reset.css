@@ -89,6 +89,12 @@ input,select{
   font-family: 'Overlock', cursive !important;
   font-size: 16px;
   color: #981F62 ;
+  margin-bottom: 20px;
+}
+.form--error{
+  font-size: 14px;
+  color:#999999;
+  margin-top: -15px;
 }
 input:focus{
   outline: none !important;

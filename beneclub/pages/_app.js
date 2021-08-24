@@ -3,7 +3,8 @@ import { useRouter } from 'next/router'
 import Layout from './../components/Layout'
 import { Fragment } from 'react'
 const renderLayout = (Component, pageProps, path) => {
-  if (path === '/login' || path === '/404') {
+  console.log(path)
+  if (path === '/login' || path === '/404' || path === '/admin') {
     return <Component {...pageProps} />
   }
   return <Layout path={path}>

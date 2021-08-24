@@ -2,10 +2,7 @@ import axios from 'axios'
 
   const apiBeneclub = axios.create({
       baseURL:'http://localhost:9001/',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
+     
   })
 
   export const getCategorias = async()=>{
@@ -43,4 +40,13 @@ import axios from 'axios'
     }catch (e) {
         throw e.response ? new Error(e.response.data.message) : new Error(e.message)
     }
+  }
+
+  export const login = async(user)=>{
+    try {
+      const response = await apiBeneclub.post('/beneclub/usuario/login/?pass='+user.password+'&cuenta='+user.user)
+      return response;
+  }catch (e) {
+      throw e.response ? new Error(e.response.data.message) : new Error(e.message)
+  }
   }
