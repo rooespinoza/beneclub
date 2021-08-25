@@ -50,3 +50,21 @@ import axios from 'axios'
       throw e.response ? new Error(e.response.data.message) : new Error(e.message)
   }
   }
+
+  export const deleteBeneficio = async(id)=>{
+    try {
+      const response = await apiBeneclub.delete('/beneficios/'+id)
+      return response;
+  }catch (e) {
+      throw e.response ? new Error(e.response.data.message) : new Error(e.message)
+  }
+  }
+
+  export const deleteCategoria = async(id)=>{
+    try {
+      const response = await apiBeneclub.delete('/categorias/'+id)
+      return response;
+  }catch (e) {
+      throw e.response ? new Error(e.response.data.message) : new Error(e.message)
+  }
+  }

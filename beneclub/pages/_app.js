@@ -4,12 +4,15 @@ import Layout from './../components/Layout'
 import { Fragment } from 'react'
 const renderLayout = (Component, pageProps, path) => {
   console.log(path)
-  if (path === '/login' || path === '/404' || path === '/admin') {
-    return <Component {...pageProps} />
+  if (path === '/') {
+    return (
+      <Layout path={path}>
+        <Component {...pageProps} />
+      </Layout>
+    )
+
   }
-  return <Layout path={path}>
-    <Component {...pageProps} />
-  </Layout>
+  return (<Component {...pageProps} />)
 }
 
 const App = ({ Component, pageProps }) => {

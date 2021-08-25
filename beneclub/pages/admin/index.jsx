@@ -9,7 +9,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import Image from 'next/image'
-import { getBeneficios, getCategorias, getBeneficiosXCategorias, getBeneficiosXProvincia } from './../../utils/fetches.js'
+import Modal from 'react-modal';
+import Button from './../../components/Button'
+import { getBeneficios, getCategorias, deleteBeneficio,deleteCategoria } from './../../utils/fetches.js'
 const Admin = () => {
   const router = useRouter()
   const [itemSelected, setItemSelected] = useState(1);
@@ -24,7 +26,9 @@ const Admin = () => {
   }
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
+const [isOpenModal,setIsOpenModal]=useState(false)
+const toggleModal = () =>setIsOpenModal(!isOpenModal);
+const [selectedRowId,setSelectedRowId] =useState(0)
   const [categorias, setCategorias] = useState([])
   const [beneficios, setBeneficios] = useState([])
   useEffect(async () => {
@@ -60,8 +64,14 @@ const Admin = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  const deleteRow = (id) => {
-
+  const deleteRow = async() => {
+    if(itemSelected==2){
+       await deleteBeneficio(selectedRowId)
+      setIsOpenModal(!isOpenModal)
+    }
+    if(itemSelected==1)
+    await deleteCategoria(selectedRowId)
+    setIsOpenModal(!isOpenModal)
   }
   return (
     <Fragment>
@@ -97,7 +107,19 @@ const Admin = () => {
                       <TableCell>{row.name}</TableCell>
                       <TableCell>{row.image}</TableCell>
                       <TableCell>{!row.baja ? <Fragment>Activo</Fragment> : <Fragment>Deshabilitado</Fragment>}</TableCell>
-                      <TableCell><div onClick={() => { deleteRow(row.idCategoria) }} className={styles.button__delete}><Image src='/images/delete.svg' alt='delete' width={17} height={17} /></div></TableCell>
+                      {!row.baja?
+                      <TableCell>
+                        <div onClick={() => { setSelectedRowId(row.idCategoria);toggleModal() }} className={styles.button__delete}>
+                          Eliminar
+                        </div>
+                      </TableCell>
+                      :
+                      <TableCell>
+                        <div onClick={() => { }} className={styles.button__delete}>
+                          Activar
+                        </div>
+                      </TableCell>
+                      }
                     </TableRow>
                   ))}
                 </TableBody>
@@ -130,8 +152,20 @@ const Admin = () => {
                     <TableCell>{row.provincia}</TableCell>
                     <TableCell>{row.direccion}</TableCell>
                     <TableCell>{!row.baja ? <Fragment>Activo</Fragment> : <Fragment>Deshabilitado</Fragment>}</TableCell>
-                    <TableCell><div onClick={() => { deleteRow(row.idCategoria) }} className={styles.button__delete}><Image src='/images/delete.svg' alt='delete' width={17} height={17} /></div></TableCell>
-                  </TableRow>
+                    {!row.baja?
+                      <TableCell>
+                        <div onClick={() => { setSelectedRowId(row.idCategoria);toggleModal() }} className={styles.button__delete}>
+                          Eliminar
+                        </div>
+                      </TableCell>
+                      :
+                      <TableCell>
+                        <div onClick={() => { }} className={styles.button__delete}>
+                          Activar
+                        </div>
+                      </TableCell>
+                      }
+                     </TableRow>
                 ))}
               </TableBody>
             </Table>
@@ -147,7 +181,18 @@ const Admin = () => {
           </TableContainer>}
         </div>
       </div>
-
+      <Modal
+        isOpen={isOpenModal}
+        className={styles.modal}
+        overlayClassName={styles.modal__overlay}
+      >
+        {itemSelected==1?
+        <p>¿Desea eliminar esta categoría?</p>
+        :
+        <p>¿Desea eliminar este beneficio?</p>
+        }<Button primary type='button' onClick={toggleModal}>Cancelar</Button>
+        <Button primary type='button' onClick={deleteRow}>Eliminar</Button>
+      </Modal>
     </Fragment>
   )
 }
