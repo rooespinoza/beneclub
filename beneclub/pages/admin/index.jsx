@@ -6,15 +6,10 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
-import TableFooter from '@material-ui/core/TableFooter';
-import TablePagination from '@material-ui/core/TablePagination';
+import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import IconButton from '@material-ui/core/IconButton';
-import FirstPageIcon from '@material-ui/icons/FirstPage';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import LastPageIcon from '@material-ui/icons/LastPage';
+import Image from 'next/image'
 import { getBeneficios, getCategorias, getBeneficiosXCategorias, getBeneficiosXProvincia } from './../../utils/fetches.js'
 const Admin = () => {
     const router = useRouter()
@@ -34,16 +29,6 @@ const Admin = () => {
     const [categorias, setCategorias] = useState([])
     const [beneficios, setBeneficios] = useState([])
 
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, categorias.length - page * rowsPerPage);
-  
-    const handleChangePage = (event, newPage) => {
-      setPage(newPage);
-    };
-  
-    const handleChangeRowsPerPage = (event) => {
-      setRowsPerPage(parseInt(event.target.value, 10));
-      setPage(0);
-    };
     useEffect(async () => {
         if (categorias.length === 0) {
           const aux = await getCategorias()
@@ -54,6 +39,17 @@ const Admin = () => {
           setBeneficios(aux)
         }
       }, [])
+      const categoriasColumn = [
+        { field: 'idCategoria', headerName: 'ID', width: 90,hide: true,  identity: true },
+        { field: 'name', headerName: 'Nombre', width: 90 },
+        { field: 'image', headerName: 'Nombre imagen', width: 90 },
+        { field: 'baja', headerName: 'Activo', width: 90 },
+        { field: 'button', headerName: '', width: 90 }
+
+      ]
+      const deleteRow = (id)=>{
+
+      }
     return (
         <Fragment>
         <div className={styles.menu}>
@@ -72,34 +68,28 @@ const Admin = () => {
                 </div>
                 <div className={styles.container}>
                   {itemSelected ===1?
-                   <TableContainer>
-                   <Table aria-label="custom pagination table">
-                     <TableBody>
-                       {(rowsPerPage > 0
-                         ? categorias.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                         : categorias
-                       ).map((row) => (
-                         <TableRow key={row.name}>
-                           <TableCell component="th" scope="row">
-                             {row.name}
-                           </TableCell>
-                           <TableCell style={{ width: 160 }}>
-                             {row.image}
-                           </TableCell>
-                           <TableCell style={{ width: 160 }} align="right">
-                             {row.baja}
-                           </TableCell>
+                     <TableContainer>
+                     <Table>
+                       <TableHead>
+                         <TableRow>
+                           {categoriasColumn.map((column)=>{
+                             <TableCell>{column.headerName}</TableCell>
+                           })}
                          </TableRow>
-                       ))}
-             
-                       {emptyRows > 0 && (
-                         <TableRow style={{ height: 53 * emptyRows }}>
-                           <TableCell colSpan={6} />
-                         </TableRow>
-                       )}
-                     </TableBody>
-                   </Table>
-                 </TableContainer>
+                       </TableHead>
+                       <TableBody>
+                         {categorias.map((row) => (
+                           <TableRow key={row.idCategoria}>
+                             <TableCell>{row.idCategoria}</TableCell>
+                             <TableCell>{row.name}</TableCell>
+                             <TableCell>{row.image}</TableCell>
+                             <TableCell>{!row.baja ? <Fragment>Activo</Fragment>:<Fragment>Deshabilitado</Fragment>}</TableCell>
+                             <TableCell><div onClick={()=>{deleteRow(row.idCategoria)}}><Image src='/images/delete.svg' alt='delete' width={20} height={20}/></div></TableCell>
+                           </TableRow>
+                         ))}
+                       </TableBody>
+                     </Table>
+                   </TableContainer>
                  :<div></div>}
                 </div>
             </div>
