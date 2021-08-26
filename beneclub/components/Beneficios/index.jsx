@@ -51,7 +51,6 @@ const Beneficios = () => {
     setBeneficios(aux)
   }
   const handleSearchChange = (e) => {
-    console.log(e.target.value)
   }
   return (
     <div className={styles.container}>

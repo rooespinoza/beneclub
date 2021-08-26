@@ -1,0 +1,39 @@
+@import "../../sass/variables.scss";
+.fondo{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    background-image: url('./../../public/images/fondo.jpg');
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.beneclub{
+    padding-top: 210px;
+}
+.title{
+    font-family: 'Overlock', cursive;
+    font-size: 40px;
+    padding-top: 100px;
+    color: white;
+    font-weight: 900;
+}
+.text{
+    font-family: 'raleway';
+    font-size: 20px;
+    color: white;
+    padding-top: 40px;
+    text-align: center;
+}
+.loading{
+    position: absolute;
+    bottom: 60px;
+    padding-top: 20px;
+}
+.loadingText{
+    font-family: 'raleway';
+    font-size: 14px;
+    color: white;
+    padding-top: 15px;
+    text-align: center;
+}
