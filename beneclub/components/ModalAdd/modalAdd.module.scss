@@ -1,0 +1,32 @@
+@import "../../sass/variables.scss";
+
+.modal{
+    background: white;
+    text-align: center;
+    outline: none;
+    border-radius: 10px;
+    z-index: 5;
+    margin: 15% auto;
+    width: 40%;
+    padding: 20px 25px 15px 25px;
+    h1{
+        color:$primaryColor;
+        font-size: 18px;
+        text-shadow: none;
+        text-align: left;
+    }
+    button{
+      min-width: 130px;
+      width: auto;
+      margin-top: 25px;
+    }
+  }
+  .modal__overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(black,0.7);
+    z-index: 5;
+  }

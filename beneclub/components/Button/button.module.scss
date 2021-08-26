@@ -23,6 +23,28 @@ button {
     &.primary:active{
         background-color: rgba($primaryActive, 0.2);
     }
+    &.color{
+      cursor: pointer;
+      margin-bottom: 10px;
+      margin-top: 10px;
+      background-color: $primaryColor;
+      border-radius: 24px;
+      padding: 5px 10px;
+      height: 40px;
+      min-width: 120px;
+      box-sizing: border-box;
+      font-size: 16px;
+      color:white;
+      font-weight: 900;
+      font-family: "Overlock", cursive;
+      transition: all 0.6s cubic-bezier(0.01, 1.69, 0.99, 0.94);
+    }
+    &.color:hover{
+      background-color: rgba($primaryColor, 0.8);
+  }
+  &.color:active{
+      background-color:$primaryActive;
+  }
     &.secondary {
         cursor: pointer;
         margin-bottom: 10px;

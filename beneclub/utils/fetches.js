@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import useSWR, { useSWRInfinite } from 'swr'
   const apiBeneclub = axios.create({
       baseURL:'http://localhost:9001/',
      
@@ -63,6 +63,24 @@ import axios from 'axios'
   export const deleteCategoria = async(id)=>{
     try {
       const response = await apiBeneclub.delete('/categorias/'+id)
+      return response;
+  }catch (e) {
+      throw e.response ? new Error(e.response.data.message) : new Error(e.message)
+  }
+  }
+    
+  export const altaBeneficio = async(id)=>{
+    try {
+      const response = await apiBeneclub.put('/beneficios/altaBeneficio/'+id)
+      return response;
+  }catch (e) {
+      throw e.response ? new Error(e.response.data.message) : new Error(e.message)
+  }
+  }
+
+  export const altaCategoria = async(id)=>{
+    try {
+      const response = await apiBeneclub.put('/categorias/altaCategoria/'+id)
       return response;
   }catch (e) {
       throw e.response ? new Error(e.response.data.message) : new Error(e.message)

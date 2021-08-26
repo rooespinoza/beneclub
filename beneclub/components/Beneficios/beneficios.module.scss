@@ -34,6 +34,12 @@
     align-items: center;
     justify-content: space-around;
 }
+.spinner{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 @media (max-width:1540px){
     .container{
         padding-left:200px;

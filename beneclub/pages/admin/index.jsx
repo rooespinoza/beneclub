@@ -9,9 +9,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import Image from 'next/image'
+import {ModalCategoria, ModalBeneficio} from './../../components/ModalAdd'
 import Modal from 'react-modal';
 import Button from './../../components/Button'
-import { getBeneficios, getCategorias, deleteBeneficio,deleteCategoria } from './../../utils/fetches.js'
+import { getBeneficios, getCategorias, deleteBeneficio,deleteCategoria,altaBeneficio,altaCategoria } from './../../utils/fetches.js'
 const Admin = () => {
   const router = useRouter()
   const [itemSelected, setItemSelected] = useState(1);
@@ -25,6 +26,7 @@ const Admin = () => {
     router.push('/')
   }
   const [page, setPage] = React.useState(0);
+  const [isOpenCategoria,setIsOpenCategoria] =useState(false)
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 const [isOpenModal,setIsOpenModal]=useState(false)
 const toggleModal = () =>setIsOpenModal(!isOpenModal);
@@ -67,11 +69,25 @@ const [selectedRowId,setSelectedRowId] =useState(0)
   const deleteRow = async() => {
     if(itemSelected==2){
        await deleteBeneficio(selectedRowId)
-      setIsOpenModal(!isOpenModal)
     }
-    if(itemSelected==1)
+    if(itemSelected==1){
     await deleteCategoria(selectedRowId)
-    setIsOpenModal(!isOpenModal)
+    }
+    setIsOpenModal(false)
+    window.location.reload();
+  }
+  const altaBene = async(id) =>{
+   const response= await altaBeneficio(id);
+   window.location.reload();
+  }
+  const altaCate = async(id) =>{
+    const response= await altaCategoria(id);
+    window.location.reload();
+  }
+  const nuevo = () =>{
+    if(itemSelected===1) {
+      setIsOpenCategoria(true)
+    }
   }
   return (
     <Fragment>
@@ -89,6 +105,7 @@ const [selectedRowId,setSelectedRowId] =useState(0)
             {itemSelected === 2 ? <div className={styles["menu__item--selected"]}></div> : <Fragment></Fragment>}
           </div>
         </div>
+        <Button color type='button' onClick={nuevo}>Nuevo</Button>
         <div className={styles.container}>
           {itemSelected === 1 ?
             <TableContainer>
@@ -115,7 +132,7 @@ const [selectedRowId,setSelectedRowId] =useState(0)
                       </TableCell>
                       :
                       <TableCell>
-                        <div onClick={() => { }} className={styles.button__delete}>
+                        <div onClick={() => {altaCate(row.idCategoria)}} className={styles.button__delete}>
                           Activar
                         </div>
                       </TableCell>
@@ -154,13 +171,13 @@ const [selectedRowId,setSelectedRowId] =useState(0)
                     <TableCell>{!row.baja ? <Fragment>Activo</Fragment> : <Fragment>Deshabilitado</Fragment>}</TableCell>
                     {!row.baja?
                       <TableCell>
-                        <div onClick={() => { setSelectedRowId(row.idCategoria);toggleModal() }} className={styles.button__delete}>
+                        <div onClick={() => { setSelectedRowId(row.id);toggleModal() }} className={styles.button__delete}>
                           Eliminar
                         </div>
                       </TableCell>
                       :
                       <TableCell>
-                        <div onClick={() => { }} className={styles.button__delete}>
+                        <div onClick={() => {altaBene(row.id)}} className={styles.button__delete}>
                           Activar
                         </div>
                       </TableCell>
@@ -172,7 +189,7 @@ const [selectedRowId,setSelectedRowId] =useState(0)
             <TablePagination
               rowsPerPageOptions={[5, 10, 25]}
               component="div"
-              count={categorias.length}
+              count={beneficios.length}
               rowsPerPage={rowsPerPage}
               page={page}
               onPageChange={handleChangePage}
@@ -185,6 +202,7 @@ const [selectedRowId,setSelectedRowId] =useState(0)
         isOpen={isOpenModal}
         className={styles.modal}
         overlayClassName={styles.modal__overlay}
+        ariaHideApp={false}
       >
         {itemSelected==1?
         <p>¿Desea eliminar esta categoría?</p>
@@ -193,6 +211,7 @@ const [selectedRowId,setSelectedRowId] =useState(0)
         }<Button primary type='button' onClick={toggleModal}>Cancelar</Button>
         <Button primary type='button' onClick={deleteRow}>Eliminar</Button>
       </Modal>
+        <ModalCategoria isOpen={isOpenCategoria}/>
     </Fragment>
   )
 }
