@@ -21,11 +21,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(false);
-        config.addAllowedOrigin("http://localhost:3000");
-        config.addAllowedHeader("http://localhost:3000");
+        config.addAllowedOrigin("*");
+        config.addAllowedHeader("*");
 
+        config.addAllowedMethod(HttpMethod.DELETE);
         config.addAllowedMethod(HttpMethod.POST);
         config.addAllowedMethod(HttpMethod.GET);
+        config.addAllowedMethod(HttpMethod.PUT);
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }

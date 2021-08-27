@@ -5,12 +5,15 @@ import { Fragment } from 'react'
 import Desarrollo from './../components/Desarrollo/index';
 const renderLayout = (Component, pageProps, path) => {
   console.log(path)
-  if (path === '/login' || path === '/404' || path === '/admin') {
-    return <Component {...pageProps} />
+  if (path === '/') {
+    return (
+      <Layout path={path}>
+        <Component {...pageProps} />
+      </Layout>
+    )
+
   }
-  return <Layout path={path}>
-    <Component {...pageProps} />
-  </Layout>
+  return (<Component {...pageProps} />)
 }
 
 const App = ({ Component, pageProps }) => {

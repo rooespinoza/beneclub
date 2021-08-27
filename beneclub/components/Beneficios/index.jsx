@@ -4,6 +4,8 @@ import styles from './beneficios.module.scss'
 import { getBeneficios, getCategorias, getBeneficiosXCategorias, getBeneficiosXProvincia } from './../../utils/fetches'
 import Image from 'next/image'
 import BeneficioCard from '../BeneficioCard'
+import Lottie from "react-lottie";
+import spinner from '../../public/animated/spinner.json'
 const Beneficios = () => {
   const [categorias, setCategorias] = useState([])
   const [beneficios, setBeneficios] = useState([])
@@ -18,6 +20,14 @@ const Beneficios = () => {
       setBeneficios(aux)
     }
   }, [])
+  const spinnerOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: spinner,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+    }
+  }
   useEffect(async () => {
     if (categoriaSelected) {
       console.log(categoriaSelected)
@@ -57,11 +67,11 @@ const Beneficios = () => {
       <div className={styles.filtros}>
         <div className={styles.categoriasContainer}>
           <div className={styles.categorias}>
-            {categorias.map((categoria) => (<FiltroCategoria key={categoria.idCategoria} id={categoria.idCategoria} image={`/images/${categoria.image}`} name={categoria.name} selectCategoria={setCategoriaSelected} />))}
+          {categorias.map((categoria) => (<FiltroCategoria key={categoria.idCategoria} id={categoria.idCategoria} image={`${categoria.image}`} name={categoria.name} selectCategoria={setCategoriaSelected} />))}
             {categoriaSelected != 0 ? <FiltroCategoria
               key="0"
               id="0"
-              image="/images/todo.svg"
+              image="todo.png"
               name="Todo"
               selectCategoria={setCategoriaSelected} />
               : <Fragment></Fragment>}
@@ -79,9 +89,14 @@ const Beneficios = () => {
       </div>
       <div className={styles.beneficios__list}>
         {beneficios.length != 0 ?
-          <Fragment>{beneficios.map((beneficio) => <BeneficioCard key={beneficio.id} beneficio={beneficio} />)}</Fragment>
+          <Fragment>{beneficios.map((beneficio) => <Fragment> {!beneficio.baja && <BeneficioCard key={beneficio.id} beneficio={beneficio} />}</Fragment>)}</Fragment>
           :
-          <Fragment><p>Estamos cargando los beneficios</p></Fragment>
+          <div className={styles.spinner}><Lottie
+          style={{display:"inline-block", marginRight:"5px"}}
+          options={spinnerOptions}
+          height={50}
+          width={50}
+        /></div>
         }
 
       </div>

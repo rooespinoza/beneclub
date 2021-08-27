@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
+
 @Entity
 @Table(name = "beneclub_beneficios")
 public class Beneficio implements Serializable{
@@ -23,25 +26,27 @@ public class Beneficio implements Serializable{
     @JoinColumn(name = "idCategoria", nullable = false, updatable = false)
 	private Categoria categoria;
 	private String provincia;
+	@Column(columnDefinition = "NVARCHAR(1000)")
 	private String descripcion;
-	private String latitud;
-	private String longitud;
+	@Column(columnDefinition = "NVARCHAR(500)")
+	private String mapa;
 	private String direccion;
-	@Column(nullable = false, columnDefinition = "boolean default false")
+	@Column(nullable = false, columnDefinition = "TINYINT default false")
 	private boolean baja;
 	private String image;
 	private String descuento;
 
-	public Beneficio(Long id, String name, Categoria categoria, String provincia, String descripcion, String latitud,
-			String longitud, String direccion, boolean baja, String image, String descuento) {
+
+
+	public Beneficio(Long id, String name, Categoria categoria, String provincia, String descripcion, String mapa,
+			String direccion, boolean baja, String image, String descuento) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.categoria = categoria;
 		this.provincia = provincia;
 		this.descripcion = descripcion;
-		this.latitud = latitud;
-		this.longitud = longitud;
+		this.mapa = mapa;
 		this.direccion = direccion;
 		this.baja = baja;
 		this.image = image;
@@ -83,18 +88,15 @@ public class Beneficio implements Serializable{
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public String getLatitud() {
-		return latitud;
+
+	public String getMapa() {
+		return mapa;
 	}
-	public void setLatitud(String latitud) {
-		this.latitud = latitud;
+
+	public void setMapa(String mapa) {
+		this.mapa = mapa;
 	}
-	public String getLongitud() {
-		return longitud;
-	}
-	public void setLongitud(String longitud) {
-		this.longitud = longitud;
-	}
+
 	public String getDireccion() {
 		return direccion;
 	}

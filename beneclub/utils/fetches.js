@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import useSWR, { useSWRInfinite } from 'swr'
   const apiBeneclub = axios.create({
       baseURL:'http://localhost:9001/',
      
@@ -50,3 +50,99 @@ import axios from 'axios'
       throw e.response ? new Error(e.response.data.message) : new Error(e.message)
   }
   }
+
+  export const deleteBeneficio = async(id)=>{
+    try {
+      const response = await apiBeneclub.delete('/beneficios/'+id)
+      return response;
+  }catch (e) {
+      throw e.response ? new Error(e.response.data.message) : new Error(e.message)
+  }
+  }
+
+  export const deleteCategoria = async(id)=>{
+    try {
+      const response = await apiBeneclub.delete('/categorias/'+id)
+      return response;
+  }catch (e) {
+      throw e.response ? new Error(e.response.data.message) : new Error(e.message)
+  }
+  }
+    
+  export const altaBeneficio = async(id)=>{
+    try {
+      const response = await apiBeneclub.put('/beneficios/altaBeneficio/'+id)
+      return response;
+  }catch (e) {
+      throw e.response ? new Error(e.response.data.message) : new Error(e.message)
+  }
+  }
+
+  export const altaCategoria = async(id)=>{
+    try {
+      const response = await apiBeneclub.put('/categorias/altaCategoria/'+id)
+      return response;
+  }catch (e) {
+      throw e.response ? new Error(e.response.data.message) : new Error(e.message)
+  }
+  }
+
+  export const insertCategoria = async(values)=>{
+    
+    const body = {name: values.name, image:values.img.name, baja:0}
+    console.log(body)    
+    try {
+      const response = await apiBeneclub.post('/categorias/',body, {
+        headers: {
+          "Access-Control-Allow-Origins": "*",
+          "cache-control": "no-cache",
+        },
+      }).then((response)=>guardarImagenCategoria(values.img))
+      return response;
+  }catch (e) {
+      throw e.response ? new Error(e.response.data.message) : new Error(e.message)
+  }
+  }
+
+  const guardarImagenCategoria = async(imagen)=> {
+    const formData = new FormData();
+    formData.append("file", imagen);
+    formData.append("name",imagen.name)
+    console.log("sdf")
+    try{
+   const response = await apiBeneclub.post('/categorias/uploadImg',formData)
+   console.log(response)
+  }
+  catch (e){
+    throw e.response ? new Error(e.response.data.message) : new Error(e.message)
+  }
+}
+
+export const insertBeneficio = async(values)=>{ 
+  console.log(values)
+  try {
+    const response = await apiBeneclub.post('/beneficios/',values, {
+      headers: {
+        "Access-Control-Allow-Origins": "*",
+        "cache-control": "no-cache",
+      },
+    }).then((response)=>guardarImagenBeneficio(values.img))
+    return response;
+}catch (e) {
+    throw e.response ? new Error(e.response.data.message) : new Error(e.message)
+}
+}
+
+const guardarImagenBeneficio = async(imagen)=> {
+  const formData = new FormData();
+  formData.append("file", imagen);
+  formData.append("name",imagen.name)
+  console.log("sdf")
+  try{
+ const response = await apiBeneclub.post('/beneficios/uploadImg',formData)
+ console.log(response)
+}
+catch (e){
+  throw e.response ? new Error(e.response.data.message) : new Error(e.message)
+}
+}

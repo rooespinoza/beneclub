@@ -35,4 +35,6 @@ public class BeneficioService extends BaseService<Beneficio,BeneficioRepository>
 		}
 
 	}
+	
+
 }

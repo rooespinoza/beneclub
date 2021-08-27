@@ -70,7 +70,7 @@ const ModalComponent = ({ open, toogleModal, beneficio }) => {
                         </div>
                         <div className={styles.map}>
                                 
-                            <iframe src={beneficio.latitud} width="90%" height="300px"  allowfullscreen="" loading="lazy"></iframe>
+                            <iframe src={beneficio.mapa} width="90%" height="300px"  allowfullscreen="" loading="lazy"></iframe>
                         </div>
                         <div className={styles.footerModal}>
                             {beneficio.descripcion}  
