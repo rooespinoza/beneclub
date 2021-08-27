@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -26,7 +28,7 @@ public class Categoria implements Serializable{
 	@OneToMany(targetEntity=Beneficio.class, mappedBy="categoria", fetch=FetchType.EAGER)
 	@JsonIgnore
 	private List<Beneficio> beneficios;
-	@Column(nullable = false, columnDefinition = "boolean default false")
+	@Column(nullable = false, columnDefinition = "TINYINT default false")
 	private boolean baja;
 	private String image;
 	

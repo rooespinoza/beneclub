@@ -88,4 +88,6 @@ public abstract class BaseService<E, R extends JpaRepository<E, Long>> implement
 		}
 		return !repository.existsById(id);
 	}
+
+	
 }

@@ -68,11 +68,11 @@ const Beneficios = () => {
       <div className={styles.filtros}>
         <div className={styles.categoriasContainer}>
           <div className={styles.categorias}>
-            {categorias.map((categoria) => (<FiltroCategoria key={categoria.idCategoria} id={categoria.idCategoria} image={`/images/${categoria.image}`} name={categoria.name} selectCategoria={setCategoriaSelected} />))}
+          {categorias.map((categoria) => (<FiltroCategoria key={categoria.idCategoria} id={categoria.idCategoria} image={`${categoria.image}`} name={categoria.name} selectCategoria={setCategoriaSelected} />))}
             {categoriaSelected != 0 ? <FiltroCategoria
               key="0"
               id="0"
-              image="/images/todo.svg"
+              image="todo.png"
               name="Todo"
               selectCategoria={setCategoriaSelected} />
               : <Fragment></Fragment>}

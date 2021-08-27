@@ -5,7 +5,7 @@ import Image from 'next/image'
 const FiltroCategoria = ({name,image,id,selectCategoria})=>{
     return(
         <div className={styles.container} id={id} onClick={()=>{selectCategoria(id)}}>
-            <Image src={image} width={82} height={82}/>
+            <Image src={`http://localhost:9001/images/categorias/${image}`} width={82} height={82}/>
             {name}
         </div>
     )

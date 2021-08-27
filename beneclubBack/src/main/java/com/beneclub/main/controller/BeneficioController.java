@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,7 +45,7 @@ public class BeneficioController extends BaseController<Beneficio, BeneficioServ
                 throw new Exception("El archivo está corrupto o no puede leerse.");
             }
 
-            String upload_folder = ".//src//main//resources//static//images//";
+            String upload_folder = ".//src//main//resources//static//images//beneficios//";
             byte[] filesBytes = file.getBytes();
             Path path = Paths.get(upload_folder + nombre);
             Files.write(path, filesBytes);
@@ -66,8 +67,7 @@ public class BeneficioController extends BaseController<Beneficio, BeneficioServ
                     beneficio.setDireccion(rs.getString("b.direccion"));
                     beneficio.setDescuento(rs.getString("b.descuento"));
                     beneficio.setImage(rs.getString("b.image"));
-                    beneficio.setLatitud(rs.getString("b.latitud"));
-                    beneficio.setLongitud(rs.getString("b.longitud"));
+                    beneficio.setMapa(rs.getString("b.mapa"));
                     beneficio.setName(rs.getString("b.name"));
                     beneficio.setProvincia(rs.getString("b.provincia"));
                     
@@ -94,8 +94,7 @@ public class BeneficioController extends BaseController<Beneficio, BeneficioServ
                     beneficio.setDireccion(rs.getString("b.direccion"));
                     beneficio.setDescuento(rs.getString("b.descuento"));
                     beneficio.setImage(rs.getString("b.image"));
-                    beneficio.setLatitud(rs.getString("b.latitud"));
-                    beneficio.setLongitud(rs.getString("b.longitud"));
+                    beneficio.setMapa(rs.getString("b.mapa"));
                     beneficio.setName(rs.getString("b.name"));
                     beneficio.setProvincia(rs.getString("b.provincia"));
                     
@@ -109,4 +108,16 @@ public class BeneficioController extends BaseController<Beneficio, BeneficioServ
                     return beneficio;
                 });
     	}
+    
+    @PutMapping("/altaBeneficio/{id}")
+    public boolean altaBeneficio(@PathVariable("id") Long id) {
+    	System.out.println(id);
+    	try {
+    	jdbcTemplate.update("UPDATE beneclub.beneclub_beneficios SET baja = '0' WHERE id = "+id);
+    	 return true;
+    	 
+     } catch (Exception ex) {
+            return false;
+        }
+    }
 }

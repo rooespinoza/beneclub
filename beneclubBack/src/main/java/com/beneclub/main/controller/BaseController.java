@@ -50,7 +50,6 @@ public class BaseController <E, S extends IBaseService<E>> {
 
 	@PostMapping("/")
 	public ResponseEntity<?> save(@RequestBody E entity) {
-
 		try {
 			return ResponseEntity.status(HttpStatus.CREATED).body(service.save(entity));
 

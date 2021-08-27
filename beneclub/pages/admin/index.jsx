@@ -27,6 +27,7 @@ const Admin = () => {
   }
   const [page, setPage] = React.useState(0);
   const [isOpenCategoria,setIsOpenCategoria] =useState(false)
+  const [isOpenBeneficio,setIsOpenBeneficio] = useState(false)
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 const [isOpenModal,setIsOpenModal]=useState(false)
 const toggleModal = () =>setIsOpenModal(!isOpenModal);
@@ -44,7 +45,6 @@ const [selectedRowId,setSelectedRowId] =useState(0)
     }
   }, [])
   const categoriasColumn = [
-    { field: 'idCategoria', headerName: 'ID', width: 90, hide: true, identity: true },
     { field: 'name', headerName: 'Nombre', width: 90 },
     { field: 'image', headerName: 'Nombre imagen', width: 90 },
     { field: 'baja', headerName: 'Activo', width: 90 },
@@ -88,11 +88,15 @@ const [selectedRowId,setSelectedRowId] =useState(0)
     if(itemSelected===1) {
       setIsOpenCategoria(true)
     }
+    if(itemSelected===2){
+      setIsOpenBeneficio(true)
+    }
   }
+
   return (
     <Fragment>
       <div className={styles.menu}>
-        <div onClick={cerrarSesion} className={styles.cerrarSesion}>Cerrar sesion</div>
+        <div onClick={cerrarSesion} className={styles.cerrarSesion}>Cerrar sesión</div>
       </div>
       <div className={styles.container__total}>
         <div className={styles.menuOpciones}>
@@ -120,7 +124,6 @@ const [selectedRowId,setSelectedRowId] =useState(0)
                 <TableBody>
                   {categorias.map((row) => (
                     <TableRow key={row.idCategoria}>
-                      <TableCell>{row.idCategoria}</TableCell>
                       <TableCell>{row.name}</TableCell>
                       <TableCell>{row.image}</TableCell>
                       <TableCell>{!row.baja ? <Fragment>Activo</Fragment> : <Fragment>Deshabilitado</Fragment>}</TableCell>
@@ -211,7 +214,8 @@ const [selectedRowId,setSelectedRowId] =useState(0)
         }<Button primary type='button' onClick={toggleModal}>Cancelar</Button>
         <Button primary type='button' onClick={deleteRow}>Eliminar</Button>
       </Modal>
-        <ModalCategoria isOpen={isOpenCategoria}/>
+        <ModalCategoria isOpen={isOpenCategoria} setIsOpen={setIsOpenCategoria}/>
+        <ModalBeneficio isOpen={isOpenBeneficio} setIsOpen={setIsOpenBeneficio} categorias={categorias}/>
     </Fragment>
   )
 }
