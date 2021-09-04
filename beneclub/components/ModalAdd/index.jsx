@@ -191,15 +191,15 @@ export const ModalBeneficio = ({ isOpen, setIsOpen,categorias }) => {
         <div className={styles.row}>
         <label>Legales: </label>
         <textarea
-          id='legales'
-          name='legales'
-          value={values.legales}
+          id='descripcion'
+          name='descripcion'
+          value={values.descripcion}
           onChange={handleChange}
           onBlur={handleBlur}
         />
-        {errors.legales && touched.legales && (
+        {errors.descripcion && touched.descripcion && (
           <div className="form--error">
-            {errors.legales}
+            {errors.descripcion}
           </div>
         )}
         </div>

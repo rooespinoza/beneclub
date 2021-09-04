@@ -6,7 +6,7 @@ const FiltroCategoria = ({name,image,id,selectCategoria})=>{
     return(
         <div className={styles.container} id={id} onClick={()=>{selectCategoria(id)}}>
             <div className={styles.img}>
-            <Image src={`http://localhost:9001/images/categorias/${image}`} layout="fill"/>
+            <Image src={`http://localhost:9001/images/categorias/${image}`} layout="fill" alt={name}/>
             </div>
             <div className={styles.name}>{name}</div>
         </div>

@@ -19,7 +19,16 @@ import useSWR, { useSWRInfinite } from 'swr'
     try {
       await apiBeneclub.post('beneclub/usuario/registro/')
         const response = await apiBeneclub.get('/beneficios/')
-        
+        return response.data;
+    }catch (e) {
+        throw e.response ? new Error(e.response.data.message) : new Error(e.message)
+    }
+  }
+
+  
+  export const getBeneficiosActivosxPagina = async(page)=>{
+    try {
+        const response = await apiBeneclub.get('/beneficios/beneficiosActivosxPagina/'+page)
         return response.data;
     }catch (e) {
         throw e.response ? new Error(e.response.data.message) : new Error(e.message)

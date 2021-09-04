@@ -1,24 +1,36 @@
 import React, { useState, Fragment, useEffect } from 'react'
 import FiltroCategoria from '../FiltroCategoria'
 import styles from './beneficios.module.scss'
-import { getBeneficios, getCategorias, getBeneficiosXCategorias, getBeneficiosXProvincia } from './../../utils/fetches'
+import {getBeneficiosActivosxPagina, getCategorias, getBeneficiosXCategorias, getBeneficiosXProvincia } from './../../utils/fetches'
 import Image from 'next/image'
 import BeneficioCard from '../BeneficioCard'
 import Lottie from "react-lottie";
 import spinner from '../../public/animated/spinner.json'
+import Pagination from '@material-ui/lab/Pagination';
 const Beneficios = () => {
   const [categorias, setCategorias] = useState([])
   const [beneficios, setBeneficios] = useState([])
   const [categoriaSelected, setCategoriaSelected] = useState()
-  useEffect(async () => {
-    if (categorias.length === 0) {
-      const aux = await getCategorias()
-      setCategorias(aux)
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState();
+  useEffect(()=> {
+    async function fetchData(){
+      if (categorias.length === 0) {
+        const aux = await getCategorias()
+        setCategorias(aux)
+      }
+      if (beneficios.length === 0) {
+        const aux = await getBeneficiosActivosxPagina(page)
+        if(aux<=9){
+          setCount(1)
+        }else{
+          setCount(Math.trunc(aux.length/9)+1)
+        }
+        
+        setBeneficios(aux)
+      }
     }
-    if (beneficios.length === 0) {
-      const aux = await getBeneficios()
-      setBeneficios(aux)
-    }
+    fetchData();
   }, [])
   const spinnerOptions = {
     loop: true,
@@ -28,21 +40,32 @@ const Beneficios = () => {
       preserveAspectRatio: 'xMidYMid slice'
     }
   }
-  useEffect(async () => {
-
-    console.log(categoriaSelected)
-    if (categoriaSelected) {
-      if (categoriaSelected == 0) {
-
-        const aux = await getBeneficios()
-        setBeneficios(aux)
-      } else {
-        const aux = await getBeneficiosXCategorias(categoriaSelected)
-        setBeneficios(aux)
+  useEffect(() => {
+    async function fetchData(){
+      if (categoriaSelected) {
+        if (categoriaSelected == 0) {
+  
+          const aux = await getBeneficiosActivosxPagina(page)
+          setBeneficios(aux)
+        } else {
+          const aux = await getBeneficiosXCategorias(categoriaSelected)
+          setBeneficios(aux)
+        }
       }
     }
+    fetchData();
 
   }, [categoriaSelected])
+  
+  useEffect(() => {
+    async function fetchData(){
+      console.log(page)
+      const aux = await getBeneficiosActivosxPagina(page)      
+      setBeneficios(aux)
+    }
+    fetchData();
+
+  }, [page])
   const provinces = [
     {
       nombre: 'Provincia'
@@ -63,7 +86,14 @@ const Beneficios = () => {
   }
   const handleSearchChange = (e) => {
   }
-  console.log(beneficios)
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
   return (
     <div className={styles.container}>
       <div className={styles.filtros}>
@@ -85,13 +115,13 @@ const Beneficios = () => {
           </select>
           <input name="busqueda" onChange={handleSearchChange} />
           <div className={styles.search_imagen}>
-            <Image src="/images/search.svg" width={20} height={20} />
+            <Image src="/images/search.svg" width={20} height={20} alt="search"/>
           </div>
         </form>
       </div>
       <div className={styles.beneficios__list}>
-        {beneficios.length != 0 ?
-          <Fragment>{beneficios.map((beneficio) => <Fragment> {!beneficio.baja && <BeneficioCard key={beneficio.id} beneficio={beneficio} />}</Fragment>)}</Fragment>
+        {beneficios && beneficios.length != 0 ?
+          <Fragment>{beneficios.map((beneficio) => <Fragment key={beneficio.id}> {!beneficio.baja && <BeneficioCard  beneficio={beneficio} />}</Fragment>)}</Fragment>
           :
           <div className={styles.spinner}><Lottie
           style={{display:"inline-block", marginRight:"5px"}}
@@ -100,8 +130,11 @@ const Beneficios = () => {
           width={50}
         /></div>
         }
-
       </div>
+      <div className={styles.paginator}>
+      <Pagination count={count} color="primary" onChange={handleChangePage}/>
+      </div>
+      
     </div>
   )
 }

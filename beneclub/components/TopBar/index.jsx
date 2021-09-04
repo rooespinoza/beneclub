@@ -60,6 +60,7 @@ const TopBar = () => {
                         src='/images/beneclub.svg'
                         width={logoWidth}
                         height={logoHeight}
+                        alt="beneclub"
                     />
                 </a>
             </Link>
@@ -69,6 +70,7 @@ const TopBar = () => {
                         src='/images/hamburguer.svg'
                         width={20}
                         height={20}
+                        alt="menu"
                     />
                     {isExtended ?
                         <Fragment>{renderMenu()}</Fragment> : <Fragment></Fragment>}

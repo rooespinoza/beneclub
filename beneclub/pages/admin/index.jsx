@@ -34,15 +34,18 @@ const toggleModal = () =>setIsOpenModal(!isOpenModal);
 const [selectedRowId,setSelectedRowId] =useState(0)
   const [categorias, setCategorias] = useState([])
   const [beneficios, setBeneficios] = useState([])
-  useEffect(async () => {
-    if (categorias.length === 0) {
-      const aux = await getCategorias()
-      setCategorias(aux)
+  useEffect(() => {
+    async function fetchData(){
+      if (categorias && categorias.length === 0) {
+        const aux = await getCategorias()
+        setCategorias(aux)
+      }
+      if (beneficios && beneficios.length === 0) {
+        const aux = await getBeneficios()
+        setBeneficios(aux)
+      }
     }
-    if (beneficios.length === 0) {
-      const aux = await getBeneficios()
-      setBeneficios(aux)
-    }
+    fetchData();
   }, [])
   const categoriasColumn = [
     { field: 'name', headerName: 'Nombre', width: 90 },

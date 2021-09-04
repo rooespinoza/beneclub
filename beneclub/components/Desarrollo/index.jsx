@@ -5,7 +5,7 @@ const Desarrollo = () => {
     return (
         <div className={styles.fondo}>
             <div className={styles.beneclub}>
-                <Image src="/images/beneclub-blanco.png" width={167} height={69} />
+                <Image src="/images/beneclub-blanco.png" width={167} height={69} alt="beneclub"/>
             </div>
             <div className={styles.title}>
                 Sitio en desarrollo
@@ -14,7 +14,7 @@ const Desarrollo = () => {
                 Te esperamos en Octubre para que disfrutes de los mejores <br /><b>descuentos y beneficios</b>
             </div>
             <div className={styles.loading}>
-                <Image src="/images/loading.png" width={270} height={12}></Image>
+                <Image src="/images/loading.png" width={270} height={12} alt="loading"></Image>
                 <div className={styles.loadingText}>
                     Loading
                 </div>

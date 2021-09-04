@@ -44,18 +44,18 @@ const ModalComponent = ({ open, toogleModal, beneficio }) => {
                                 {beneficio.categoria.name}
                             </div>
                             <div className={styles.closeButton} onClick={toogleModal}>
-                                <Image src='/images/cerrar.svg' width={15} height={15}></Image>
+                                <Image src='/images/cerrar.svg' width={15} height={15} alt="close"></Image>
                             </div>
                         </div>
                         :<Fragment></Fragment>}
                         <div className={styles.bodyModal}>
                             <div className={styles.contBeneficio}>
                                 {width<=640 ?
-                                <Image src={`/images/beneficios/${beneficio.image}`} width={widthImage} height={heightImage} layout='responsive'></Image>
-                                :<Image src={`/images/beneficios/${beneficio.image}`} width={widthImage} height={heightImage}></Image>}
+                                <Image src={`/images/beneficios/${beneficio.image}`} width={widthImage} height={heightImage} layout='responsive' alt={beneficio.name}></Image>
+                                :<Image src={`/images/beneficios/${beneficio.image}`} width={widthImage} height={heightImage}  alt={beneficio.name}></Image>}
                                 {width<=640 ? 
                                 <div className={styles.closeButton} onClick={toogleModal}>
-                                    <Image src='/images/cerrar.svg' width={15} height={15}></Image>
+                                    <Image src='/images/cerrar.svg' width={15} height={15}  alt="close"></Image>
                                 </div>
                                 :
                                 <Fragment></Fragment>}
