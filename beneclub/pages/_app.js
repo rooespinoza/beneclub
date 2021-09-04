@@ -19,11 +19,11 @@ const renderLayout = (Component, pageProps, path) => {
 const App = ({ Component, pageProps }) => {
   const Router = useRouter()
   const path = Router.pathname
- return <Desarrollo/>
- /* return (
+ //return <Desarrollo/>
+  return (
     <Fragment>
       {renderLayout(Component, pageProps, path)}
     </Fragment>
-  )*/
+  )
 }
 export default App

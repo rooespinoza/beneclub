@@ -10,18 +10,19 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
+    margin-top: 40px;
 }
 .categorias{
     display: flex;
     flex-direction: row;
 }
 .buscador{
-    margin-bottom: 20px;
+    margin-bottom: 0px;
 }
 .search_imagen{
     position: absolute;
     z-index: 1;
-    margin-top: -25px;
+    margin-top: -45px;
     margin-left: 420px;
     cursor: pointer;
 }

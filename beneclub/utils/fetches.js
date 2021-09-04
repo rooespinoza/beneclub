@@ -6,7 +6,8 @@ import useSWR, { useSWRInfinite } from 'swr'
   })
 
   export const getCategorias = async()=>{
-    try {
+    try {      
+      await apiBeneclub.post('beneclub/usuario/registro/')
         const response = await apiBeneclub.get('/categorias/')
         return response.data;
     }catch (e) {
@@ -16,6 +17,7 @@ import useSWR, { useSWRInfinite } from 'swr'
 
   export const getBeneficios = async()=>{
     try {
+      await apiBeneclub.post('beneclub/usuario/registro/')
         const response = await apiBeneclub.get('/beneficios/')
         
         return response.data;
@@ -43,7 +45,8 @@ import useSWR, { useSWRInfinite } from 'swr'
   }
 
   export const login = async(user)=>{
-    try {
+    try {      
+      await apiBeneclub.post('beneclub/usuario/registro/')
       const response = await apiBeneclub.post('/beneclub/usuario/login/?pass='+user.password+'&cuenta='+user.user)
       return response;
   }catch (e) {

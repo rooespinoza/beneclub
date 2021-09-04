@@ -29,8 +29,9 @@ const Beneficios = () => {
     }
   }
   useEffect(async () => {
+
+    console.log(categoriaSelected)
     if (categoriaSelected) {
-      console.log(categoriaSelected)
       if (categoriaSelected == 0) {
 
         const aux = await getBeneficios()
@@ -62,6 +63,7 @@ const Beneficios = () => {
   }
   const handleSearchChange = (e) => {
   }
+  console.log(beneficios)
   return (
     <div className={styles.container}>
       <div className={styles.filtros}>

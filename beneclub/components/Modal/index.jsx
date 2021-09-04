@@ -9,14 +9,19 @@ const ModalComponent = ({ open, toogleModal, beneficio }) => {
     const [width,setWidht]=useState();
     const [widthImage,setwidthImage]=useState('300');
     const [heightImage,setheightImage]=useState(300);
-
+    const [mapa,setMapa]=useState('')
     useEffect(()=>{
         setWidht(window.innerWidth)
         if (window.innerWidth<=640){
             setwidthImage(300)
             setheightImage(300)
         }
+        if(beneficio.mapa.indexOf("<iframe>")){
+            setMapa(beneficio.mapa.slice(13,-88))
+        }
     },[])
+   
+    
     return (
         <div>
             <Modal
@@ -69,8 +74,7 @@ const ModalComponent = ({ open, toogleModal, beneficio }) => {
                             </div>
                         </div>
                         <div className={styles.map}>
-                                
-                            <iframe src={beneficio.mapa} width="90%" height="300px"  allowfullscreen="" loading="lazy"></iframe>
+                            <iframe src={mapa} width="90%" height="300px"  allowFullScreen="" loading="lazy"></iframe>
                         </div>
                         <div className={styles.footerModal}>
                             {beneficio.descripcion}  
