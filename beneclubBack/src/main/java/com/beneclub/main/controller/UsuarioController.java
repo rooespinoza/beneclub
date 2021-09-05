@@ -28,21 +28,28 @@ public class UsuarioController extends BaseController<Usuario, UsuarioService>{
 	 private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder ();
 	 
 
-	/* @PostMapping("/registro")
-	    public boolean registro(@RequestParam String cuenta, @RequestParam String pass) throws Exception {
+	 @PostMapping("/registro")
+	    public boolean registro() throws Exception {
 	        try {
-	            Usuario user = new Usuario();
-	            user.setId( new Long(1));
-	            user.setPassword(bCryptPasswordEncoder.encode(pass));
-	            user.setUser(cuenta);
-	            this.jdbcTemplate.update("Insert into beneclub_user(password,user) values(?,?)",user.getPassword(), user.getUser());
-	                    
-	            return true;
+	        	String sql = "SELECT count(*) FROM beneclub_user WHERE user = ?";
+	        	boolean exists = false;
+	        	int count = jdbcTemplate.queryForObject(sql,new Object[] { "admin" },Integer.class);
+	        	exists = count > 0;
+	        	if(!exists) {
+	        		String password = bCryptPasswordEncoder.encode("adminBeneclub123");
+		            String user = "admin";
+		            this.jdbcTemplate.update("Insert into beneclub_user(password,user) values(?,?)",password,user);
+		                    
+		            return true;
+	        	}else {
+	        		return false;
+	        	}
+	            
 
 	        } catch (Exception ex) {
 	            return false;
 	        }
-	    }*/
+	    }
 	  @PostMapping("/login")
 	    public Usuario login(@RequestParam String cuenta, @RequestParam String pass) throws Exception {
 	        try {

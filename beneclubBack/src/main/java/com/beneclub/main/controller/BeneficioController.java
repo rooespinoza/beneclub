@@ -58,7 +58,7 @@ public class BeneficioController extends BaseController<Beneficio, BeneficioServ
     @GetMapping("/beneficioXCategoria/{id}")
     public List<Beneficio> getFiltradoCategoria(@PathVariable Long id) {
     	return this.jdbcTemplate.query(
-    			"SELECT * FROM beneclub.beneclub_beneficios b INNER JOIN beneclub_categorias c on b.idCategoria=c.idCategoria where b.idCategoria ="+id ,
+    			"SELECT * FROM beneclub_beneficios b INNER JOIN beneclub_categorias c on b.idCategoria=c.idCategoria where b.idCategoria ="+id ,
                 (rs, rowNum) -> {
                     Beneficio beneficio = new Beneficio();
                     beneficio.setId(rs.getLong("b.id"));
@@ -73,9 +73,9 @@ public class BeneficioController extends BaseController<Beneficio, BeneficioServ
                     
                     Categoria categoria = new Categoria();
                     categoria.setIdCategoria(rs.getLong("c.idCategoria"));
-                    categoria.setName(rs.getString("c.name"));
-                    categoria.setImage(rs.getString("c.image"));
-                    categoria.setBaja(rs.getBoolean("c.baja"));
+                    categoria.setName(rs.getString("c.nameCategoria"));
+                    categoria.setImage(rs.getString("c.imageCategoria"));
+                    categoria.setBaja(rs.getBoolean("c.bajaCategoria"));
                     
                     beneficio.setCategoria(categoria);
                     return beneficio;
@@ -85,7 +85,7 @@ public class BeneficioController extends BaseController<Beneficio, BeneficioServ
     @GetMapping("/beneficioXProvincia/{provincia}")
     public List<Beneficio> getFiltradoProvincia(@PathVariable("provincia") String provincia) {
     	return this.jdbcTemplate.query(
-    			"SELECT * FROM beneclub.beneclub_beneficios b INNER JOIN beneclub_categorias c on b.idCategoria=c.idCategoria where b.provincia = '"+provincia +"'" ,
+    			"SELECT * FROM beneclub_beneficios b INNER JOIN beneclub_categorias c on b.idCategoria=c.idCategoria where b.provincia = '"+provincia +"'" ,
                 (rs, rowNum) -> {
                     Beneficio beneficio = new Beneficio();
                     beneficio.setId(rs.getLong("b.id"));
@@ -100,9 +100,77 @@ public class BeneficioController extends BaseController<Beneficio, BeneficioServ
                     
                     Categoria categoria = new Categoria();
                     categoria.setIdCategoria(rs.getLong("c.idCategoria"));
-                    categoria.setName(rs.getString("c.name"));
-                    categoria.setImage(rs.getString("c.image"));
-                    categoria.setBaja(rs.getBoolean("c.baja"));                    
+                    categoria.setName(rs.getString("c.nameCategoria"));
+                    categoria.setImage(rs.getString("c.imageCategoria"));
+                    categoria.setBaja(rs.getBoolean("c.bajaCategoria"));                    
+                    
+                    beneficio.setCategoria(categoria);
+                    return beneficio;
+                });
+    	}
+    @GetMapping("/beneficiosAll/{page}")
+    public List<Beneficio> getBenefcios(@PathVariable int page) {
+    	int aux = page-1;
+    	int desde=aux*9;    	
+    	int cant = 9;
+    	return this.jdbcTemplate.query(
+    			"SELECT * FROM beneclub_beneficios b INNER JOIN beneclub_categorias c on b.idCategoria=c.idCategoria LIMIT "+desde+","+cant,
+                (rs, rowNum) -> {
+                    Beneficio beneficio = new Beneficio();
+                    beneficio.setId(rs.getLong("b.id"));
+                    beneficio.setBaja(rs.getBoolean("b.baja"));
+                    beneficio.setDescripcion(rs.getString("b.descripcion"));
+                    beneficio.setDireccion(rs.getString("b.direccion"));
+                    beneficio.setDescuento(rs.getString("b.descuento"));
+                    beneficio.setImage(rs.getString("b.image"));
+                    beneficio.setMapa(rs.getString("b.mapa"));
+                    beneficio.setName(rs.getString("b.name"));
+                    beneficio.setProvincia(rs.getString("b.provincia"));
+                    
+                    Categoria categoria = new Categoria();
+                    categoria.setIdCategoria(rs.getLong("c.idCategoria"));
+                    categoria.setName(rs.getString("c.nameCategoria"));
+                    categoria.setImage(rs.getString("c.imageCategoria"));
+                    categoria.setBaja(rs.getBoolean("c.bajaCategoria"));
+                    
+                    beneficio.setCategoria(categoria);
+                    return beneficio;
+                });
+    	}
+    @GetMapping("/countBeneficiosActivos/")
+    public int getCountBeneficioActivo() {
+    	String sql = "SELECT count(*) FROM beneclub_beneficios where baja = 0";
+		return jdbcTemplate.queryForObject(sql,Integer.class);
+    	}
+    @GetMapping("/countAllBeneficios/")
+    public int getCountAllBeneficio() {
+    	String sql = "SELECT count(*) FROM beneclub_beneficios";
+		return jdbcTemplate.queryForObject(sql,Integer.class);
+    	}
+    @GetMapping("/beneficiosActivosxPagina/{page}")
+    public List<Beneficio> getBenefcioActivoPaginado(@PathVariable int page) {
+    	int aux = page-1;
+    	int desde=aux*9;    	
+    	int cant = 9;
+    	return this.jdbcTemplate.query(
+    			"SELECT * FROM beneclub_beneficios b INNER JOIN beneclub_categorias c on b.idCategoria=c.idCategoria where baja = 0 LIMIT "+desde+","+cant,
+                (rs, rowNum) -> {
+                    Beneficio beneficio = new Beneficio();
+                    beneficio.setId(rs.getLong("b.id"));
+                    beneficio.setBaja(rs.getBoolean("b.baja"));
+                    beneficio.setDescripcion(rs.getString("b.descripcion"));
+                    beneficio.setDireccion(rs.getString("b.direccion"));
+                    beneficio.setDescuento(rs.getString("b.descuento"));
+                    beneficio.setImage(rs.getString("b.image"));
+                    beneficio.setMapa(rs.getString("b.mapa"));
+                    beneficio.setName(rs.getString("b.name"));
+                    beneficio.setProvincia(rs.getString("b.provincia"));
+                    
+                    Categoria categoria = new Categoria();
+                    categoria.setIdCategoria(rs.getLong("c.idCategoria"));
+                    categoria.setName(rs.getString("c.nameCategoria"));
+                    categoria.setImage(rs.getString("c.imageCategoria"));
+                    categoria.setBaja(rs.getBoolean("c.bajaCategoria"));
                     
                     beneficio.setCategoria(categoria);
                     return beneficio;
@@ -113,7 +181,7 @@ public class BeneficioController extends BaseController<Beneficio, BeneficioServ
     public boolean altaBeneficio(@PathVariable("id") Long id) {
     	System.out.println(id);
     	try {
-    	jdbcTemplate.update("UPDATE beneclub.beneclub_beneficios SET baja = '0' WHERE id = "+id);
+    	jdbcTemplate.update("UPDATE beneclub_beneficios SET baja = '0' WHERE id = "+id);
     	 return true;
     	 
      } catch (Exception ex) {

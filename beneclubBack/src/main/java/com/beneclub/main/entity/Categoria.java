@@ -24,22 +24,22 @@ public class Categoria implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idCategoria;
 	@Column(nullable = false)
-	private String name;
+	private String nameCategoria;
 	@OneToMany(targetEntity=Beneficio.class, mappedBy="categoria", fetch=FetchType.EAGER)
 	@JsonIgnore
 	private List<Beneficio> beneficios;
 	@Column(nullable = false, columnDefinition = "TINYINT default false")
-	private boolean baja;
-	private String image;
+	private boolean bajaCategoria;
+	private String imageCategoria;
 	
 	
 	public Categoria(Long idCategoria, String name, List<Beneficio> beneficios, boolean baja, String image) {
 		super();
 		this.idCategoria = idCategoria;
-		this.name = name;
+		this.nameCategoria = name;
 		this.beneficios = beneficios;
-		this.baja = baja;
-		this.image = image;
+		this.bajaCategoria = baja;
+		this.imageCategoria = image;
 	}
 
 	public Categoria() {
@@ -47,10 +47,10 @@ public class Categoria implements Serializable{
 	}
 
 	public String getName() {
-		return name;
+		return nameCategoria;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.nameCategoria = name;
 	}
 
 	public List<Beneficio> getBeneficios() {
@@ -60,10 +60,10 @@ public class Categoria implements Serializable{
 		this.beneficios = beneficios;
 	}
 	public boolean isBaja() {
-		return baja;
+		return bajaCategoria;
 	}
 	public void setBaja(boolean baja) {
-		this.baja = baja;
+		this.bajaCategoria = baja;
 	}
 
 	public Long getIdCategoria() {
@@ -75,11 +75,11 @@ public class Categoria implements Serializable{
 	}
 
 	public String getImage() {
-		return image;
+		return imageCategoria;
 	}
 
 	public void setImage(String image) {
-		this.image = image;
+		this.imageCategoria = image;
 	}
 	
 	
