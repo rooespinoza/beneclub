@@ -1,10 +1,9 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import styles from './modal.module.scss';
-import Image from 'next/image';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-
+import Image from 'next/image'
 const ModalComponent = ({ open, toogleModal, beneficio }) => {
     const [width, setWidht] = useState();
     const [widthImage, setwidthImage] = useState('300');
@@ -21,7 +20,9 @@ const ModalComponent = ({ open, toogleModal, beneficio }) => {
         }
     }, [])
 
-
+    const loaderBeneficio = ({ src, quality }) => {
+        return `http://localhost:9001/images/beneficios/${src}?w=${width}&q=${quality || 75}`
+      }
     return (
         <div>
             <Modal
@@ -44,7 +45,7 @@ const ModalComponent = ({ open, toogleModal, beneficio }) => {
                                     {beneficio.categoria.name}
                                 </div>
                                 <div className={styles.closeButton} onClick={toogleModal}>
-                                    <Image src='/images/cerrar.svg' width={15} height={15} alt="close"></Image>
+                                    <img src='/images/cerrar.svg' width={15} height={15} alt="close"/>
                                 </div>
                             </div>
                             : <Fragment></Fragment>}
@@ -52,13 +53,13 @@ const ModalComponent = ({ open, toogleModal, beneficio }) => {
                             <div className={styles.contBeneficio}>
                                 <div className={styles.img}>
                                     {beneficio.image != "" ?
-                                        <Image src={`http://localhost:9001/images/beneficios/${beneficio.image}`} alt={beneficio.name} width={170} height={170} />
+                                        <Image loader={loaderBeneficio} src={beneficio.image} alt={beneficio.name} width={170} height={170} />
                                         :
-                                        <Image src={`/images/beneficios/default.jpg`} alt={beneficio.name} width={170} height={170} />}
+                                        <img src={`/images/beneficios/default.jpg`} alt={beneficio.name} width={170} height={170} />}
                                 </div>
                                 {width <= 640 ?
                                     <div className={styles.closeButton} onClick={toogleModal}>
-                                        <Image src='/images/cerrar.svg' width={15} height={15} alt="close"></Image>
+                                        <img src='/images/cerrar.svg' width={15} height={15} alt="close"/>
                                     </div>
                                     :
                                     <Fragment></Fragment>}

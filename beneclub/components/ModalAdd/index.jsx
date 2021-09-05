@@ -5,9 +5,20 @@ import Button from './../Button'
 import { Formik } from 'formik'
 import { string, object, number } from 'yup'
 import { insertCategoria, insertBeneficio } from './../../utils/fetches'
+import Lottie from "react-lottie";
+import spinner from '../../public/animated/spinner-white.json'
 export const ModalCategoria = ({ isOpen, setIsOpen }) => {
+  const spinnerOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: spinner,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+    }
+  }
   const [img, setImg] = useState(null)
   const [limitFile, setLimitFile] = useState(false)
+  const [isSubmitting,setIsSubmitting] = useState(false)
   const onFileChange = event => {
     setImg(event.target.files[0]);
     if (event.target.files[0].size >= 1048576) {
@@ -55,15 +66,26 @@ export const ModalCategoria = ({ isOpen, setIsOpen }) => {
         <br />
         <div className={styles.button__container}>
           <Button color type="button" onClick={() => { setIsOpen(!isOpen) }}>Cerrar</Button>
-          <Button color type="submit">Guardar</Button>
+          <Button color type="submit">
+            {isSubmitting? 
+            <Lottie
+            style={{display:"inline-block", marginRight:"5px"}}
+            options={spinnerOptions}
+            height={20}
+            width={20}
+          />
+            :
+            <Fragment>Guardar</Fragment>}</Button>
         </div>
       </form>
     )
   }
   const submitForm = async (values, actions) => {
-    await insertCategoria(values)
+    setIsSubmitting(true)
+   await insertCategoria(values)
     setIsOpen(false)
-    window.location.reload()
+    setIsSubmitting(false)
+    window.location.reload()  
   }
   const validationSchema = () => object().shape({
     name: string()
@@ -93,8 +115,18 @@ export const ModalCategoria = ({ isOpen, setIsOpen }) => {
 
 
 export const ModalBeneficio = ({ isOpen, setIsOpen, categorias }) => {
+  const spinnerOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: spinner,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+    }
+  }
   const [img, setImg] = useState(null)
   const [limitFile, setLimitFile] = useState(false)
+  
+  const [isSubmitting,setIsSubmitting] = useState(false)
   const onFileChange = event => {
     setImg(event.target.files[0]);
     if (event.target.files[0].size >= 1048576) {
@@ -253,13 +285,23 @@ export const ModalBeneficio = ({ isOpen, setIsOpen, categorias }) => {
         </div>
         <div className={styles.button__container}>
           <Button color type="button" onClick={() => { setIsOpen(!isOpen) }}>Cerrar</Button>
-          <Button color type="submit">Guardar</Button>
+          <Button color type="submit">
+            {isSubmitting? 
+            <Lottie
+            style={{display:"inline-block", marginRight:"5px"}}
+            options={spinnerOptions}
+            height={20}
+            width={20}
+          />
+            :
+              <Fragment>Guardar</Fragment>}</Button>
 
         </div>
       </form>
     )
   }
   const submitFormBeneficio = async (values, actions) => {
+    setIsSubmitting(true)
     const body = {
       img,
       name: values.name,
@@ -273,7 +315,8 @@ export const ModalBeneficio = ({ isOpen, setIsOpen, categorias }) => {
         idCategoria: values.idCategoria,
       }
     }
-    await insertBeneficio(body)
+    await insertBeneficio(body)    
+    setIsSubmitting(false)
     window.location.reload()
     setIsOpen(false)
   }

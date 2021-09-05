@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import styles from './topBar.module.scss'
-import Image from 'next/image'
 import Button from './../Button'
 import Link from 'next/link'
+import Image from 'next/image'
 const TopBar = (setIsOpenBeneficio) => {
     const [width, setWidth] = useState()
     const [isExtended, setIsExtended] = useState(false)
@@ -58,7 +58,7 @@ const TopBar = (setIsOpenBeneficio) => {
         <div className={styles.container}>
             <Link href="/#">
                 <a>
-                    <Image
+                    <img
                         src='/images/beneclub.svg'
                         width={logoWidth}
                         height={logoHeight}
@@ -68,7 +68,7 @@ const TopBar = (setIsOpenBeneficio) => {
             </Link>
             {width <= 769 ?
                 <div className={styles.menu__hamburguer} onClick={toggleMenu}>
-                    <Image
+                    <img
                         src='/images/hamburguer.svg'
                         width={20}
                         height={20}

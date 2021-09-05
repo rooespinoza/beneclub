@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import React, { Fragment, useState } from 'react'
 import Button from '../../components/Button'
 import { Formik, Field } from 'formik'
@@ -8,6 +7,7 @@ import { login } from '../../utils/fetches'
 import { useRouter } from 'next/router'
 import Lottie from "react-lottie";
 import spinner from '../../public/animated/spinner.json'
+import Image from 'next/image'
 const Login = () => {
   const router = useRouter()
   const [isSubmiting, setIsSubmiting] = useState(false)
@@ -110,7 +110,7 @@ const Login = () => {
   return (
     <Fragment>
       <div className={styles.logo} onClick={() => { router.push("/") }}>
-        <Image src={'/images/beneclub.svg'} alt="logo" width={150} height={100} />
+        <img src={'/images/beneclub.svg'} alt="logo" width={150} height={100} />
       </div>
       <div className={styles.container}>
         <div className={styles.title}>

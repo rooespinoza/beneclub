@@ -2,12 +2,12 @@ import React, { useState, Fragment, useEffect } from 'react'
 import FiltroCategoria from '../FiltroCategoria'
 import styles from './beneficios.module.scss'
 import {getBeneficiosActivosxPagina, getCategoriasActivas, getBeneficiosXCategorias, getBeneficiosXProvincia,getCountBeneficiosActivos } from './../../utils/fetches'
-import Image from 'next/image'
 import BeneficioCard from '../BeneficioCard'
 import Lottie from "react-lottie";
 import spinner from '../../public/animated/spinner.json'
 import Pagination from '@material-ui/lab/Pagination';
 import { ModalBeneficio } from '../ModalAdd'
+import Image from 'next/image'
 const Beneficios = (isOpenBeneficio,setIsOpenBeneficio) => {
   const [categorias, setCategorias] = useState([])
   const [beneficios, setBeneficios] = useState([])
@@ -131,7 +131,7 @@ const Beneficios = (isOpenBeneficio,setIsOpenBeneficio) => {
           </select>
           <input name="search" onChange={handleSearchChange} />
           <div className={styles.search_imagen}>
-            <Image src="/images/search.svg" width={20} height={20} alt="search"/>
+            <img src="/images/search.svg" width={20} height={20} alt="search"/>
           </div>
         </form>
       </div>

@@ -8,7 +8,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Pagination from '@material-ui/lab/Pagination';
-import Image from 'next/image'
 import { ModalCategoria, ModalBeneficio } from './../../components/ModalAdd'
 import Modal from 'react-modal';
 import Button from './../../components/Button'

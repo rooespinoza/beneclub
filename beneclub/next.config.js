@@ -4,5 +4,5 @@ module.exports = {
 module.exports = {
   images: {
     domains: ['localhost'],
-},
+}
 };
