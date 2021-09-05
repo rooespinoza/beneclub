@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useEffect } from 'react'
 import FiltroCategoria from '../FiltroCategoria'
 import styles from './beneficios.module.scss'
-import {getBeneficiosActivosxPagina, getCategorias, getBeneficiosXCategorias, getBeneficiosXProvincia } from './../../utils/fetches'
+import {getBeneficiosActivosxPagina, getCategoriasActivas, getBeneficiosXCategorias, getBeneficiosXProvincia,getCountBeneficiosActivos } from './../../utils/fetches'
 import Image from 'next/image'
 import BeneficioCard from '../BeneficioCard'
 import Lottie from "react-lottie";
@@ -13,18 +13,20 @@ const Beneficios = () => {
   const [categoriaSelected, setCategoriaSelected] = useState()
   const [page, setPage] = useState(1);
   const [count, setCount] = useState();
+  const [noSearch, setNoSearch] =useState(false)
   useEffect(()=> {
     async function fetchData(){
       if (categorias.length === 0) {
-        const aux = await getCategorias()
+        const aux = await getCategoriasActivas()
         setCategorias(aux)
       }
       if (beneficios.length === 0) {
+        const auxCount = await getCountBeneficiosActivos()
         const aux = await getBeneficiosActivosxPagina(page)
-        if(aux<=9){
+        if (auxCount <= 9) {
           setCount(1)
-        }else{
-          setCount(Math.trunc(aux.length/9)+1)
+        } else {
+          setCount(Math.trunc(auxCount / 9) + 1)
         }
         
         setBeneficios(aux)
@@ -59,7 +61,6 @@ const Beneficios = () => {
   
   useEffect(() => {
     async function fetchData(){
-      console.log(page)
       const aux = await getBeneficiosActivosxPagina(page)      
       setBeneficios(aux)
     }
@@ -84,16 +85,29 @@ const Beneficios = () => {
     const aux = await getBeneficiosXProvincia(e.target.value)
     setBeneficios(aux)
   }
-  const handleSearchChange = (e) => {
+  const handleSearchChange = async(e) => {
+    var text = e.target.value
+    if(text != ''){
+      const data = beneficios
+      const newData = data.filter(function(item){
+          const itemData = item.name.toUpperCase()
+          const textData = text.toUpperCase()
+          return itemData.indexOf(textData) > -1
+      })    
+      if(newData.length===0){
+        setNoSearch(true)
+      }
+      setBeneficios(newData)
+    }else{
+      const aux = await getBeneficiosActivosxPagina(page)
+      setBeneficios(aux)
+    }
+    
   }
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
   return (
     <div className={styles.container}>
       <div className={styles.filtros}>
@@ -113,7 +127,7 @@ const Beneficios = () => {
           <select name='provincia' onChange={handleProvinciaChange}>
             {provinces.map((p, index) => { return (<option key={index} value={p.nombre}>{p.nombre}</option>) })}
           </select>
-          <input name="busqueda" onChange={handleSearchChange} />
+          <input name="search" onChange={handleSearchChange} />
           <div className={styles.search_imagen}>
             <Image src="/images/search.svg" width={20} height={20} alt="search"/>
           </div>
@@ -123,6 +137,7 @@ const Beneficios = () => {
         {beneficios && beneficios.length != 0 ?
           <Fragment>{beneficios.map((beneficio) => <Fragment key={beneficio.id}> {!beneficio.baja && <BeneficioCard  beneficio={beneficio} />}</Fragment>)}</Fragment>
           :
+          noSearch && beneficios.length === 0 ?<div>No se encontraron coincidencias</div>:
           <div className={styles.spinner}><Lottie
           style={{display:"inline-block", marginRight:"5px"}}
           options={spinnerOptions}

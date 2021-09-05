@@ -16,7 +16,7 @@ const ModalComponent = ({ open, toogleModal, beneficio }) => {
             setwidthImage(300)
             setheightImage(300)
         }
-        if(beneficio.mapa.indexOf("<iframe>")){
+        if(beneficio.mapa && beneficio.mapa.indexOf("<iframe>")){
             setMapa(beneficio.mapa.slice(13,-88))
         }
     },[])

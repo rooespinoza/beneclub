@@ -210,7 +210,6 @@ export const ModalBeneficio = ({ isOpen, setIsOpen,categorias }) => {
     )
   }
   const submitFormBeneficio = async (values, actions) => {
-    console.log(values.idCategoria)
     const body={
       img,
       name: values.name,

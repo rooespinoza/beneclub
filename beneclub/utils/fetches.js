@@ -4,28 +4,59 @@ import useSWR, { useSWRInfinite } from 'swr'
       baseURL:'http://localhost:9001/',
      
   })
-
-  export const getCategorias = async()=>{
+//Trae todas las categorias por pagina
+  export const getCategorias = async(page)=>{
     try {      
       await apiBeneclub.post('beneclub/usuario/registro/')
-        const response = await apiBeneclub.get('/categorias/')
+        const response = await apiBeneclub.get('categorias/categorias/'+page)
         return response.data;
     }catch (e) {
         throw e.response ? new Error(e.response.data.message) : new Error(e.message)
     }
   }
 
-  export const getBeneficios = async()=>{
+   //Trae la cantidad de registros en categorias
+   export const getCountCategorias = async()=>{
     try {
       await apiBeneclub.post('beneclub/usuario/registro/')
-        const response = await apiBeneclub.get('/beneficios/')
+        const response = await apiBeneclub.get('categorias/countAllCategorias/')
         return response.data;
     }catch (e) {
         throw e.response ? new Error(e.response.data.message) : new Error(e.message)
     }
   }
 
-  
+  //Trae las categorias activas
+  export const getCategoriasActivas = async()=>{
+    try {      
+      await apiBeneclub.post('beneclub/usuario/registro/')
+        const response = await apiBeneclub.get('/categorias/categoriasActivas/')
+        return response.data;
+    }catch (e) {
+        throw e.response ? new Error(e.response.data.message) : new Error(e.message)
+    }
+  }
+//Trae todos los beneficios, incluido los dados de baja, paginados
+  export const getBeneficios = async(page)=>{
+    try {
+      await apiBeneclub.post('beneclub/usuario/registro/')
+        const response = await apiBeneclub.get('beneficios/beneficiosAll/'+page)
+        return response.data;
+    }catch (e) {
+        throw e.response ? new Error(e.response.data.message) : new Error(e.message)
+    }
+  }
+  //Trae la cantidad de registros en beneficios
+  export const getCountBeneficios = async()=>{
+    try {
+      await apiBeneclub.post('beneclub/usuario/registro/')
+        const response = await apiBeneclub.get('beneficios/countAllBeneficios/')
+        return response.data;
+    }catch (e) {
+        throw e.response ? new Error(e.response.data.message) : new Error(e.message)
+    }
+  }
+   //Trae todos los beneficios activos
   export const getBeneficiosActivosxPagina = async(page)=>{
     try {
         const response = await apiBeneclub.get('/beneficios/beneficiosActivosxPagina/'+page)
@@ -34,7 +65,17 @@ import useSWR, { useSWRInfinite } from 'swr'
         throw e.response ? new Error(e.response.data.message) : new Error(e.message)
     }
   }
-
+    //Trae la cantidad de registros en beneficios
+    export const getCountBeneficiosActivos = async()=>{
+      try {
+        await apiBeneclub.post('beneclub/usuario/registro/')
+          const response = await apiBeneclub.get('beneficios/countBeneficiosActivos/')
+          return response.data;
+      }catch (e) {
+          throw e.response ? new Error(e.response.data.message) : new Error(e.message)
+      }
+    }
+ //Trae los beneficios de una categoria
   export const getBeneficiosXCategorias = async(id)=>{
     try {
         const response = await apiBeneclub.get('/beneficios/beneficioXCategoria/'+id)
@@ -43,7 +84,7 @@ import useSWR, { useSWRInfinite } from 'swr'
         throw e.response ? new Error(e.response.data.message) : new Error(e.message)
     }
   }
-
+//Trae los beneficios de una provincia
   export const getBeneficiosXProvincia = async(provincia)=>{
     try {
         const response = await apiBeneclub.get('/beneficios/beneficioXProvincia/'+provincia)
@@ -52,7 +93,7 @@ import useSWR, { useSWRInfinite } from 'swr'
         throw e.response ? new Error(e.response.data.message) : new Error(e.message)
     }
   }
-
+//Login de usuario
   export const login = async(user)=>{
     try {      
       await apiBeneclub.post('beneclub/usuario/registro/')
@@ -62,7 +103,7 @@ import useSWR, { useSWRInfinite } from 'swr'
       throw e.response ? new Error(e.response.data.message) : new Error(e.message)
   }
   }
-
+//Da de baja un beneficio
   export const deleteBeneficio = async(id)=>{
     try {
       const response = await apiBeneclub.delete('/beneficios/'+id)
@@ -71,7 +112,7 @@ import useSWR, { useSWRInfinite } from 'swr'
       throw e.response ? new Error(e.response.data.message) : new Error(e.message)
   }
   }
-
+//Da de baja una categoria
   export const deleteCategoria = async(id)=>{
     try {
       const response = await apiBeneclub.delete('/categorias/'+id)
@@ -80,7 +121,7 @@ import useSWR, { useSWRInfinite } from 'swr'
       throw e.response ? new Error(e.response.data.message) : new Error(e.message)
   }
   }
-    
+    //Vuelve a activar un beneficio
   export const altaBeneficio = async(id)=>{
     try {
       const response = await apiBeneclub.put('/beneficios/altaBeneficio/'+id)
@@ -89,7 +130,7 @@ import useSWR, { useSWRInfinite } from 'swr'
       throw e.response ? new Error(e.response.data.message) : new Error(e.message)
   }
   }
-
+    //Vuelve a activar una categoria
   export const altaCategoria = async(id)=>{
     try {
       const response = await apiBeneclub.put('/categorias/altaCategoria/'+id)
@@ -98,11 +139,10 @@ import useSWR, { useSWRInfinite } from 'swr'
       throw e.response ? new Error(e.response.data.message) : new Error(e.message)
   }
   }
-
+//Agregar una nueva categoria
   export const insertCategoria = async(values)=>{
     
     const body = {name: values.name, image:values.img.name, baja:0}
-    console.log(body)    
     try {
       const response = await apiBeneclub.post('/categorias/',body, {
         headers: {
@@ -115,23 +155,21 @@ import useSWR, { useSWRInfinite } from 'swr'
       throw e.response ? new Error(e.response.data.message) : new Error(e.message)
   }
   }
-
+//guarda una imagen en el servidor
   const guardarImagenCategoria = async(imagen)=> {
     const formData = new FormData();
     formData.append("file", imagen);
     formData.append("name",imagen.name)
-    console.log("sdf")
     try{
    const response = await apiBeneclub.post('/categorias/uploadImg',formData)
-   console.log(response)
+  
   }
   catch (e){
     throw e.response ? new Error(e.response.data.message) : new Error(e.message)
   }
 }
-
+//Agrega un beneficio
 export const insertBeneficio = async(values)=>{ 
-  console.log(values)
   try {
     const response = await apiBeneclub.post('/beneficios/',values, {
       headers: {
@@ -144,15 +182,13 @@ export const insertBeneficio = async(values)=>{
     throw e.response ? new Error(e.response.data.message) : new Error(e.message)
 }
 }
-
+//guarda una imagen en el servidor
 const guardarImagenBeneficio = async(imagen)=> {
   const formData = new FormData();
   formData.append("file", imagen);
   formData.append("name",imagen.name)
-  console.log("sdf")
   try{
  const response = await apiBeneclub.post('/beneficios/uploadImg',formData)
- console.log(response)
 }
 catch (e){
   throw e.response ? new Error(e.response.data.message) : new Error(e.message)

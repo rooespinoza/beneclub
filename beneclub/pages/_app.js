@@ -4,7 +4,6 @@ import Layout from './../components/Layout'
 import { Fragment } from 'react'
 import Desarrollo from './../components/Desarrollo/index';
 const renderLayout = (Component, pageProps, path) => {
-  console.log(path)
   if (path === '/') {
     return (
       <Layout path={path}>
