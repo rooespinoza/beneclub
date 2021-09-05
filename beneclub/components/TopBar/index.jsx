@@ -3,7 +3,7 @@ import styles from './topBar.module.scss'
 import Image from 'next/image'
 import Button from './../Button'
 import Link from 'next/link'
-const TopBar = () => {
+const TopBar = (setIsOpenBeneficio) => {
     const [width, setWidth] = useState()
     const [isExtended, setIsExtended] = useState(false)
     const [logoWidth, setLogoWidth] = useState(120)
@@ -15,7 +15,9 @@ const TopBar = () => {
             setLogoHeight(45)
         }
     }, [])
-
+    const openBeneficio = ()=>{
+        setIsOpenBeneficio.setIsOpenBeneficio(!setIsOpenBeneficio.isOpenBeneficio)
+    }
     const toggleMenu = () => setIsExtended(!isExtended)
     const renderMenu = () => {
         return (
@@ -45,7 +47,7 @@ const TopBar = () => {
                         </div>
                     </a>
                 </Link>
-                <div className={styles.menu__item}>
+                <div className={styles.menu__item} onClick={openBeneficio}>
                     Adherir mi negocio
                     <div className={styles["menu__item--selected"]}></div>
                 </div>

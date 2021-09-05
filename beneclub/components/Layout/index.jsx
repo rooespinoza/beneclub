@@ -18,7 +18,7 @@ const Layout = ({ children, path }) => {
   return (
         <div>
             <Head title={renderTitle()} />
-            <TopBar/>
+            
             {children}
             <Footer/>
         </div>

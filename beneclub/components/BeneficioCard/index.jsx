@@ -13,7 +13,10 @@ const BeneficioCard = ({beneficio})=>{
             <Fragment>
             <div className={styles.container} onClick={toogleModal}>
                 <div className={styles.image}>
-                <Image src={`/images/beneficios/${beneficio.image}`} alt={beneficio.name} width={170} height={170}/>
+                    {beneficio.image!=""?
+                        <Image src={`http://localhost:9001/images/beneficios/${beneficio.image}`} alt={beneficio.name} width={170} height={170}/>
+                    :
+                    <Image src={`/images/beneficios/default.jpg`} alt={beneficio.name} width={170} height={170}/>}
                 </div>
                <div className={styles.text__container}>
                    <p><span className={styles.text__descuento}>{beneficio.descuento}</span></p>

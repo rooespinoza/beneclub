@@ -6,22 +6,22 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 
 const ModalComponent = ({ open, toogleModal, beneficio }) => {
-    const [width,setWidht]=useState();
-    const [widthImage,setwidthImage]=useState('300');
-    const [heightImage,setheightImage]=useState(300);
-    const [mapa,setMapa]=useState('')
-    useEffect(()=>{
+    const [width, setWidht] = useState();
+    const [widthImage, setwidthImage] = useState('300');
+    const [heightImage, setheightImage] = useState(300);
+    const [mapa, setMapa] = useState('')
+    useEffect(() => {
         setWidht(window.innerWidth)
-        if (window.innerWidth<=640){
+        if (window.innerWidth <= 640) {
             setwidthImage(300)
             setheightImage(300)
         }
-        if(beneficio.mapa && beneficio.mapa.indexOf("<iframe>")){
-            setMapa(beneficio.mapa.slice(13,-88))
+        if (beneficio.mapa && beneficio.mapa.indexOf("<iframe>")) {
+            setMapa(beneficio.mapa.slice(13, -88))
         }
-    },[])
-   
-    
+    }, [])
+
+
     return (
         <div>
             <Modal
@@ -38,46 +38,49 @@ const ModalComponent = ({ open, toogleModal, beneficio }) => {
             >
                 <Fade in={open}>
                     <div className={styles.canvas}>
-                        {width>640?
-                        <div className={styles.headerModal}>
-                            <div className={styles.catBeneficio}>
-                                {beneficio.categoria.name}
+                        {width > 640 ?
+                            <div className={styles.headerModal}>
+                                <div className={styles.catBeneficio}>
+                                    {beneficio.categoria.name}
+                                </div>
+                                <div className={styles.closeButton} onClick={toogleModal}>
+                                    <Image src='/images/cerrar.svg' width={15} height={15} alt="close"></Image>
+                                </div>
                             </div>
-                            <div className={styles.closeButton} onClick={toogleModal}>
-                                <Image src='/images/cerrar.svg' width={15} height={15} alt="close"></Image>
-                            </div>
-                        </div>
-                        :<Fragment></Fragment>}
+                            : <Fragment></Fragment>}
                         <div className={styles.bodyModal}>
                             <div className={styles.contBeneficio}>
                                 <div className={styles.img}>
-                                    <Image src={`/images/beneficios/${beneficio.image}`} layout="fill"></Image>
+                                    {beneficio.image != "" ?
+                                        <Image src={`http://localhost:9001/images/beneficios/${beneficio.image}`} alt={beneficio.name} width={170} height={170} />
+                                        :
+                                        <Image src={`/images/beneficios/default.jpg`} alt={beneficio.name} width={170} height={170} />}
                                 </div>
-                                {width<=640 ? 
-                                <div className={styles.closeButton} onClick={toogleModal}>
-                                    <Image src='/images/cerrar.svg' width={15} height={15}  alt="close"></Image>
-                                </div>
-                                :
-                                <Fragment></Fragment>}
+                                {width <= 640 ?
+                                    <div className={styles.closeButton} onClick={toogleModal}>
+                                        <Image src='/images/cerrar.svg' width={15} height={15} alt="close"></Image>
+                                    </div>
+                                    :
+                                    <Fragment></Fragment>}
                             </div>
                             <div className={styles.textBeneficio}>
-                                {width<=640 ?
-                                <div className={styles.catBeneficio}>
-                                {beneficio.categoria.name}
-                                </div>
-                                :<Fragment></Fragment>}
+                                {width <= 640 ?
+                                    <div className={styles.catBeneficio}>
+                                        {beneficio.categoria.name}
+                                    </div>
+                                    : <Fragment></Fragment>}
                                 <div className={styles.textCategoria}>{beneficio.name}</div>
                                 <div className={styles.textDescuento}>{beneficio.descuento}</div>
-                                {width>=640 ?
+                                {width >= 640 ?
                                     <div className={styles.textCredencial}>Presentando tu credencial</div>
-                                    :<Fragment></Fragment>}
+                                    : <Fragment></Fragment>}
                             </div>
                         </div>
                         <div className={styles.map}>
-                            <iframe src={mapa} width="90%" height="300px"  allowFullScreen="" loading="lazy"></iframe>
+                            <iframe src={mapa} width="90%" height="300px" allowFullScreen="" loading="lazy"></iframe>
                         </div>
                         <div className={styles.footerModal}>
-                            {beneficio.descripcion}  
+                            {beneficio.descripcion}
                         </div>
                     </div>
                 </Fade>
