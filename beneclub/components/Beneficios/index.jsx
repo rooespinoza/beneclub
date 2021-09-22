@@ -7,7 +7,6 @@ import Lottie from "react-lottie";
 import spinner from '../../public/animated/spinner.json'
 import Pagination from '@material-ui/lab/Pagination';
 import { ModalBeneficio } from '../ModalAdd'
-import Image from 'next/image'
 const Beneficios = (isOpenBeneficio,setIsOpenBeneficio) => {
   const [categorias, setCategorias] = useState([])
   const [beneficios, setBeneficios] = useState([])
@@ -115,7 +114,7 @@ const Beneficios = (isOpenBeneficio,setIsOpenBeneficio) => {
       <div className={styles.filtros}>
         <div className={styles.categoriasContainer}>
           <div className={styles.categorias}>
-          {categorias.map((categoria) => (<FiltroCategoria key={categoria.idCategoria} id={categoria.idCategoria} image={`${categoria.image}`} name={categoria.name} selectCategoria={setCategoriaSelected} />))}
+          {categorias.map((categoria) => (<FiltroCategoria key={categoria.idCategoria} id={categoria.idCategoria} image={`${categoria.image.idImage}`} name={categoria.name} selectCategoria={setCategoriaSelected} />))}
             {categoriaSelected != 0 ? <FiltroCategoria
               key="0"
               id="0"

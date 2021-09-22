@@ -1,6 +1,5 @@
 import styles from './desarrollo.module.scss'
 import React from 'react'
-import Image from 'next/image'
 const Desarrollo = () => {
     return (
         <div className={styles.fondo}>

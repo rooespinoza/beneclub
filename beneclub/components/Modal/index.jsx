@@ -21,7 +21,7 @@ const ModalComponent = ({ open, toogleModal, beneficio }) => {
     }, [])
 
     const loaderBeneficio = ({ src, quality }) => {
-        return `http://localhost:9001/images/beneficios/${src}?w=${width}&q=${quality || 75}`
+        return `http://localhost:9001/beneficios/getImage?idImage=${src}?w=${width}&q=${quality || 75}`
       }
     return (
         <div>
@@ -53,9 +53,9 @@ const ModalComponent = ({ open, toogleModal, beneficio }) => {
                             <div className={styles.contBeneficio}>
                                 <div className={styles.img}>
                                     {beneficio.image != "" ?
-                                        <Image loader={loaderBeneficio} src={beneficio.image} alt={beneficio.name} width={170} height={170} />
+                                        <Image loader={loaderBeneficio} src={beneficio.image.idImage.toString()} alt={beneficio.name} layout="fill" />
                                         :
-                                        <img src={`/images/beneficios/default.jpg`} alt={beneficio.name} width={170} height={170} />}
+                                        <img src={`/images/beneficios/default.jpg`} alt={beneficio.name} layout="fill" />}
                                 </div>
                                 {width <= 640 ?
                                     <div className={styles.closeButton} onClick={toogleModal}>

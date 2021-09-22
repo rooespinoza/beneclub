@@ -7,7 +7,6 @@ import { login } from '../../utils/fetches'
 import { useRouter } from 'next/router'
 import Lottie from "react-lottie";
 import spinner from '../../public/animated/spinner.json'
-import Image from 'next/image'
 const Login = () => {
   const router = useRouter()
   const [isSubmiting, setIsSubmiting] = useState(false)

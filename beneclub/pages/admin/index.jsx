@@ -163,7 +163,7 @@ const Admin = () => {
                     {categorias.map((row) => (
                       <TableRow key={row.idCategoria}>
                         <TableCell>{row.name}</TableCell>
-                        <TableCell>{row.image}</TableCell>
+                        <TableCell>{row.image.idImage}</TableCell>
                         <TableCell>{!row.baja ? <Fragment>Activo</Fragment> : <Fragment>Deshabilitado</Fragment>}</TableCell>
                         {!row.baja ?
                           <TableCell>

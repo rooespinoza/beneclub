@@ -9,9 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Type;
 
 
 @Entity
@@ -33,13 +33,15 @@ public class Beneficio implements Serializable{
 	private String direccion;
 	@Column(nullable = false, columnDefinition = "TINYINT default false")
 	private boolean baja;
-	private String image;
+	@OneToOne
+    @JoinColumn(name = "idImage", nullable = false)
+	private ImagenBeneficio image;
 	private String descuento;
 
 
 
 	public Beneficio(Long id, String name, Categoria categoria, String provincia, String descripcion, String mapa,
-			String direccion, boolean baja, String image, String descuento) {
+			String direccion, boolean baja, ImagenBeneficio image, String descuento) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -109,10 +111,10 @@ public class Beneficio implements Serializable{
 	public void setBaja(boolean baja) {
 		this.baja = baja;
 	}
-	public String getImage() {
+	public ImagenBeneficio getImage() {
 		return image;
 	}
-	public void setImage(String image) {
+	public void setImage(ImagenBeneficio image) {
 		this.image = image;
 	}
 

@@ -2,8 +2,9 @@ import React, { useState,Fragment } from 'react'
 import styles from './filtroCategoria.module.scss'
 import Image from 'next/image'
 const FiltroCategoria = ({name,image,id,selectCategoria})=>{
+    console.log(image)
     const loaderCategoria = ({ src, width,quality }) => {
-        return `http://localhost:9001/images/categorias/${src}?w=${width}&q=${quality || 75}`
+        return `http://localhost:9001/categorias/getImage?idImage=${src}?w=${width}&q=${quality || 75}`
       }
     return(
         <div className={styles.container} id={id} onClick={()=>{selectCategoria(id)}}>

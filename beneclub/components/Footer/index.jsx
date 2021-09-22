@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styles from './footer.module.scss';
 import Link from 'next/link';
-import Image from 'next/image'
 const Footer = () => {
-    const [widthLogo, setWidthLogo] = useState(320)
-    const [heightLogo, setHeightLogo] = useState(100)
+    const [widthLogo, setWidthLogo] = useState(250)
+    const [heightLogo, setHeightLogo] = useState(60)
     useEffect(() => {
         if (window.innerWidth <= 769) {
             setWidthLogo(250);

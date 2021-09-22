@@ -141,15 +141,16 @@ import useSWR, { useSWRInfinite } from 'swr'
   }
 //Agregar una nueva categoria
   export const insertCategoria = async(values)=>{
-    
-    const body = {name: values.name, image:values.img.name, baja:0}
+    const img = await guardarImagenCategoria(values.img)
+    const body = {name: values.name, image:img, baja:0}
+
     try {
       const response = await apiBeneclub.post('/categorias/',body, {
         headers: {
           "Access-Control-Allow-Origins": "*",
           "cache-control": "no-cache",
         },
-      }).then((response)=>guardarImagenCategoria(values.img))
+      })
       return response;
   }catch (e) {
       throw e.response ? new Error(e.response.data.message) : new Error(e.message)
@@ -161,8 +162,9 @@ import useSWR, { useSWRInfinite } from 'swr'
     formData.append("file", imagen);
     formData.append("name",imagen.name)
     try{
-   const response = await apiBeneclub.post('/categorias/uploadImg',formData)
-  
+   const response = await apiBeneclub.post('/categorias/image',formData)
+   console.log(response)
+    return response.data;
   }
   catch (e){
     throw e.response ? new Error(e.response.data.message) : new Error(e.message)
@@ -170,13 +172,25 @@ import useSWR, { useSWRInfinite } from 'swr'
 }
 //Agrega un beneficio
 export const insertBeneficio = async(values)=>{ 
+  const img = await guardarImagenBeneficio(values.img);
+  const body = {
+    name: values.name, 
+    image:img, 
+    baja:0,
+    descripcion:values.descripcion,
+    direccion:values.direccion,
+    mapa:values.mapa,
+    provincia:values.provincia,
+    categoria:values.categoria.idCategoria,
+    descuento:values.descuento
+  }
   try {
-    const response = await apiBeneclub.post('/beneficios/',values, {
+    const response = await apiBeneclub.post('/beneficios/',body, {
       headers: {
         "Access-Control-Allow-Origins": "*",
         "cache-control": "no-cache",
       },
-    }).then((response)=>guardarImagenBeneficio(values.img))
+    })
     return response;
 }catch (e) {
     throw e.response ? new Error(e.response.data.message) : new Error(e.message)
@@ -188,7 +202,8 @@ const guardarImagenBeneficio = async(imagen)=> {
   formData.append("file", imagen);
   formData.append("name",imagen.name)
   try{
- const response = await apiBeneclub.post('/beneficios/uploadImg',formData)
+ const response = await apiBeneclub.post('/beneficios/image',formData)
+ return response.data;
 }
 catch (e){
   throw e.response ? new Error(e.response.data.message) : new Error(e.message)

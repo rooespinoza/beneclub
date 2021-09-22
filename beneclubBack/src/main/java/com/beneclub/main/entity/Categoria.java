@@ -3,17 +3,16 @@ package com.beneclub.main.entity;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -30,8 +29,9 @@ public class Categoria implements Serializable{
 	private List<Beneficio> beneficios;
 	@Column(nullable = false, columnDefinition = "TINYINT default false")
 	private boolean bajaCategoria;
-	private String imageCategoria;
-	
+	@OneToOne
+    @JoinColumn(name = "idImage", nullable = false)
+	private ImageCategoria image;
 	
 	public Categoria(Long idCategoria, String name, List<Beneficio> beneficios, boolean baja, String image) {
 		super();
@@ -39,11 +39,15 @@ public class Categoria implements Serializable{
 		this.nameCategoria = name;
 		this.beneficios = beneficios;
 		this.bajaCategoria = baja;
-		this.imageCategoria = image;
 	}
 
 	public Categoria() {
 		super();
+	}
+
+	public Categoria(Long idCategoria) {
+		super();
+		this.idCategoria = idCategoria;
 	}
 
 	public String getName() {
@@ -74,13 +78,15 @@ public class Categoria implements Serializable{
 		this.idCategoria = idCategoria;
 	}
 
-	public String getImage() {
-		return imageCategoria;
+	public ImageCategoria getImage() {
+		return image;
 	}
 
-	public void setImage(String image) {
-		this.imageCategoria = image;
+	public void setImage(ImageCategoria image) {
+		this.image = image;
 	}
+
+
 	
 	
 }

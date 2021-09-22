@@ -1,6 +1,5 @@
 import React, { useState,Fragment } from 'react'
 import styles from './preguntas.module.scss'
-import Image from 'next/image'
 const Preguntas = () => {
     const [pregunta,setPregunta] = useState(0)
     const togglePregunta= (id) => {

@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from 'react'
 import styles from './topBar.module.scss'
 import Button from './../Button'
 import Link from 'next/link'
-import Image from 'next/image'
 const TopBar = (setIsOpenBeneficio) => {
     const [width, setWidth] = useState()
     const [isExtended, setIsExtended] = useState(false)
