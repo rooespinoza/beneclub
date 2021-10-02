@@ -85,7 +85,7 @@ export const ModalCategoria = ({ isOpen, setIsOpen }) => {
    await insertCategoria(values)
     setIsOpen(false)
     setIsSubmitting(false)
-    window.location.reload()  
+   // window.location.reload()  
   }
   const validationSchema = () => object().shape({
     name: string()
@@ -202,7 +202,7 @@ export const ModalBeneficio = ({ isOpen, setIsOpen, categorias }) => {
               <label>Categoria: </label><br />
               <select name='idCategoria' id='idCategoria' value={values.idCategoria} onChange={handleChange} onBlur={handleBlur}>
                 <option value={0} defaultValue>Seleccionar categoria</option>
-                {categorias.map(row => <option key={row.idCategoria} value={row.idCategoria}>{row.name}</option>)}
+                {categorias.map(row => <option key={row.idCategoria} value={row.idCategoria}>{row.nameCategoria}</option>)}
               </select>
               {errors.descuento && touched.descuento && (
                 <div className="form--error">
@@ -317,7 +317,7 @@ export const ModalBeneficio = ({ isOpen, setIsOpen, categorias }) => {
     }
     await insertBeneficio(body)    
     setIsSubmitting(false)
-    window.location.reload()
+  //  window.location.reload()
     setIsOpen(false)
   }
   const validationSchema = () => object().shape({

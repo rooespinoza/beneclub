@@ -42,10 +42,10 @@ const Admin = () => {
     async function fetchData() {
       if (categorias && categorias.length === 0) {
         const auxCount = await getCountCategorias()
-        if (auxCount <= 9) {
+        if (auxCount["count(*)"] <= 9) {
           setCountCat(1)
         } else {
-          setCountCat(Math.trunc(auxCount / 9) + 1)
+          setCountCat(Math.trunc(auxCount["count(*)"] / 9) + 1)
         }
         const aux = await getCategorias(pageCat)
         setCategorias(aux)
@@ -53,10 +53,10 @@ const Admin = () => {
       if (beneficios && beneficios.length === 0) {
         const auxCount = await getCountBeneficios()
         const aux = await getBeneficios(page)
-        if (auxCount <= 9) {
+        if (auxCount["count(*)"] <= 9) {
           setCount(1)
         } else {
-          setCount(Math.trunc(auxCount / 9) + 1)
+          setCount(Math.trunc(auxCount["count(*)"] / 9) + 1)
         }
         setBeneficios(aux)
       }
@@ -162,8 +162,8 @@ const Admin = () => {
                   <TableBody>
                     {categorias.map((row) => (
                       <TableRow key={row.idCategoria}>
-                        <TableCell>{row.name}</TableCell>
-                        <TableCell>{row.image.idImage}</TableCell>
+                        <TableCell>{row.nameCategoria}</TableCell>
+                        <TableCell>{row.idImage}</TableCell>
                         <TableCell>{!row.baja ? <Fragment>Activo</Fragment> : <Fragment>Deshabilitado</Fragment>}</TableCell>
                         {!row.baja ?
                           <TableCell>

@@ -23,10 +23,10 @@ const Beneficios = (isOpenBeneficio,setIsOpenBeneficio) => {
       if (beneficios.length === 0) {
         const auxCount = await getCountBeneficiosActivos()
         const aux = await getBeneficiosActivosxPagina(page)
-        if (auxCount <= 9) {
+        if (auxCount["count(*)"] <= 9) {
           setCount(1)
         } else {
-          setCount(Math.trunc(auxCount / 9) + 1)
+          setCount(Math.trunc(auxCount["count(*)"] / 9) + 1)
         }
         
         setBeneficios(aux)
@@ -114,7 +114,7 @@ const Beneficios = (isOpenBeneficio,setIsOpenBeneficio) => {
       <div className={styles.filtros}>
         <div className={styles.categoriasContainer}>
           <div className={styles.categorias}>
-          {categorias.map((categoria) => (<FiltroCategoria key={categoria.idCategoria} id={categoria.idCategoria} image={`${categoria.image.idImage}`} name={categoria.name} selectCategoria={setCategoriaSelected} />))}
+          {categorias.map((categoria) => (<FiltroCategoria key={categoria.idCategoria} id={categoria.idCategoria} image={`${categoria.idImageCategoria}`} name={categoria.nameCategoria} selectCategoria={setCategoriaSelected} />))}
             {categoriaSelected != 0 ? <FiltroCategoria
               key="0"
               id="0"
