@@ -2,20 +2,12 @@ import React, { useState, useEffect } from 'react';
 import styles from './footer.module.scss';
 import Link from 'next/link';
 const Footer = () => {
-    const [widthLogo, setWidthLogo] = useState(250)
-    const [heightLogo, setHeightLogo] = useState(60)
-    useEffect(() => {
-        if (window.innerWidth <= 769) {
-            setWidthLogo(250);
-            setHeightLogo(60);
-        }
-    }, [])
     return (
         <div className={styles.footer}>
             <div className={styles.whiteContainer}>
                 <div className={styles.logosContainer}>
-                    <img src='/images/andesSalud-footer.svg' width={widthLogo} height={heightLogo} alt="andes salud"/>
-                    <img src='/images/Beneclub-footer.svg' width={widthLogo} height={heightLogo} alt="beneclub"/>
+                    <img src='/images/andesSalud-footer.svg' width={250} height={75} alt="andes salud"/>
+                    <img src='/images/Beneclub-footer.svg' width={250} height={75} alt="beneclub"/>
                 </div>
                 <div className={styles.socialContainer}>
                 <Link href="http://api.whatsapp.com/send?phone=+5492614661214&text=Hola,%20tengo%20una%20consulta%20sobre%20Beneclub.">

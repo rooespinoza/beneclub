@@ -13,6 +13,8 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
 }
 .pinkContainer{
     background-color: $primaryColor;
@@ -27,8 +29,11 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     width: 50%;
+    *{
+        margin: 10px;
+    }
 }
 .socialContainer{
     display:flex;
@@ -49,14 +54,29 @@
 
 }
 @media (max-width: 769px) {
-
+    .footer{
+       margin-top: -70px;
+    }
+    .logosContainer{
+        *{
+            max-height:50px;
+        }
+    }
 }
 @media (max-width: 640px) {
 
 }
 @media (max-width: 426px) {
+    .footer{
+        margin-top: -130px;
+     }
     .logosContainer{
-        width: 70%;
+        width: 50%;
+       padding: 0 40px;
+       *{
+        margin: 0px;
+        max-height:30px;
+    }
     }
     .socialContainer{
         width: 40%;
@@ -66,14 +86,10 @@
     }
     }
 @media (max-width: 360px) {
-
+    .logosContainer{
+        width: 70%;
+    }
 }
 @media (max-width: 320px) {
-    .logosContainer{
-        width: 100%;
-    }
-    .socialContainer{
-        width: 60%;
-    }
-
+   
 }
