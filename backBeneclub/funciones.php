@@ -172,7 +172,34 @@ function getIdImageCategoria()
 }
 
 
+function insertContacto($contacto)
+{    
+    $bd = obtenerConexion();
+    $sentencia = $bd->prepare("INSERT INTO u959049150_bdbeneclub.beneclub_contacto(`nombre`,`telefono`,`email`,`baja`,`nombreComercio`) VALUES (?,?,?,0,?)");
+    return $sentencia->execute([$contacto->nombre, $contacto->telefono, $contacto->email, $contacto->nombreComercio]);
+    
+}
+function getContactos($page)
+{
+    $bd = obtenerConexion();
+    $aux = $page-1;
+    $desde=$aux*9;  
+    $sentencia = $bd->query("SELECT * FROM u959049150_bdbeneclub.beneclub_contacto WHERE baja = 0 LIMIT ".$desde.",9");
+    return $sentencia->fetchAll();
+}
 
+function deleteContacto($idContacto){  
+    $bd = obtenerConexion();
+    $sentencia = $bd->query("UPDATE u959049150_bdbeneclub.beneclub_contacto SET baja = 1 WHERE id = $idContacto");
+    return $sentencia->fetchObject();
+}
+
+
+function getCountContacto(){
+    $bd = obtenerConexion();
+    $sentencia = $bd->query("SELECT count(*) FROM u959049150_bdbeneclub.beneclub_contacto where baja = 0;");
+    return $sentencia->fetchObject();
+}
 function obtenerVariableDelEntorno($key)
 {
     if (defined("_ENV_CACHE")) {

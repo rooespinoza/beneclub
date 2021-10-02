@@ -7,7 +7,6 @@ import { useRouter } from 'next/router'
 import TopBar from './../components/TopBar'
 const Home = () => {
   const router = useRouter()
-  const [isOpenBeneficio, setIsOpenBeneficio] = useState(false)
   const goAndes = ()=>{
     router.push("http://www.andessalud.com.ar/")
   }
@@ -16,12 +15,12 @@ const Home = () => {
   }
   return (
     <Fragment>
-      <TopBar setIsOpenBeneficio={setIsOpenBeneficio} isOpenBeneficio={isOpenBeneficio}/>
+      <TopBar/>
       <div className={styles.title__container}>
         <div className={styles.title}><h1>Los mejores beneficios, en un solo lugar</h1></div>
       </div>
       <div className={styles.beneficios__container}>
-      <Beneficios isOpenBeneficio={isOpenBeneficio} setIsOpenBeneficio={setIsOpenBeneficio}/>
+      <Beneficios/>
       </div>
       <div className={styles.sumate__container} id="asociarme">
         <div className={styles.sumate__text}>

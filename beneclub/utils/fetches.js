@@ -247,3 +247,49 @@ const getIdImagenBeneficio = async () =>{
     throw e.response ? new Error(e.response.data.message) : new Error(e.message)
   }
 }
+
+
+export const insertContacto = async (values) => {
+  console.log(values)
+  try {
+    const contactoCarga = JSON.stringify(values);
+    const respuesta = await fetch(`${ruta}/insertContacto.php`, {
+        method: "POST",
+        body: contactoCarga,
+    });
+    const response = await respuesta.json();
+    return response;
+  } catch (e) {
+    throw e.response ? new Error(e.response.data.message) : new Error(e.message)
+  }
+}
+
+export const getCountContacto = async () => {
+  try {
+    const respuesta = await fetch(`${ruta}/getCountContacto.php`);
+    const response = await respuesta.json();
+    return response;
+  } catch (e) {
+    throw e.response ? new Error(e.response.data.message) : new Error(e.message)
+  }
+}
+
+export const getContactos = async (page) => {
+  try {
+    const respuesta = await fetch(`${ruta}/getContactos.php?page=` + page);
+    const response = await respuesta.json();
+    return response;
+  } catch (e) {
+    throw e.response ? new Error(e.response.data.message) : new Error(e.message)
+  }
+}
+
+export const deleteContacto = async (id) => {
+  try {
+    const respuesta = await fetch(`${ruta}/deleteContacto.php?id=` + id);
+    const response = await respuesta.json();
+    return response;
+  } catch (e) {
+    throw e.response ? new Error(e.response.data.message) : new Error(e.message)
+  }
+}

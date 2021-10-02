@@ -6,8 +6,7 @@ import BeneficioCard from '../BeneficioCard'
 import Lottie from "react-lottie";
 import spinner from '../../public/animated/spinner.json'
 import Pagination from '@material-ui/lab/Pagination';
-import { ModalBeneficio } from '../ModalAdd'
-const Beneficios = (isOpenBeneficio,setIsOpenBeneficio) => {
+const Beneficios = () => {
   const [categorias, setCategorias] = useState([])
   const [beneficios, setBeneficios] = useState([])
   const [categoriaSelected, setCategoriaSelected] = useState()
@@ -152,7 +151,7 @@ const Beneficios = (isOpenBeneficio,setIsOpenBeneficio) => {
       </div>
       
     </div>
-    <ModalBeneficio isOpen={isOpenBeneficio.isOpenBeneficio} setIsOpen={isOpenBeneficio.setIsOpenBeneficio} categorias={categorias} />
+    
     </Fragment>
   )
 }

@@ -2,11 +2,13 @@ import React, { Fragment, useEffect, useState } from 'react'
 import styles from './topBar.module.scss'
 import Button from './../Button'
 import Link from 'next/link'
-const TopBar = (setIsOpenBeneficio) => {
+import {ModalContacto} from './../ModalContacto';
+const TopBar = () => {
     const [width, setWidth] = useState()
     const [isExtended, setIsExtended] = useState(false)
     const [logoWidth, setLogoWidth] = useState(120)
     const [logoHeight, setLogoHeight] = useState(75)
+    const [isOpen, setIsOpen] = useState(false)
     useEffect(() => {
         setWidth(window.innerWidth)
         if (window.innerWidth <= 769) {
@@ -14,8 +16,8 @@ const TopBar = (setIsOpenBeneficio) => {
             setLogoHeight(45)
         }
     }, [])
-    const openBeneficio = ()=>{
-        setIsOpenBeneficio.setIsOpenBeneficio(!setIsOpenBeneficio.isOpenBeneficio)
+    const toggleNuevo = () => {
+        setIsOpen(!isOpen);
     }
     const toggleMenu = () => setIsExtended(!isExtended)
     const renderMenu = () => {
@@ -46,7 +48,7 @@ const TopBar = (setIsOpenBeneficio) => {
                         </div>
                     </a>
                 </Link>
-                <div className={styles.menu__item} onClick={openBeneficio}>
+                <div className={styles.menu__item} onClick={toggleNuevo}>
                     Adherir mi negocio
                     <div className={styles["menu__item--selected"]}></div>
                 </div>
@@ -54,32 +56,36 @@ const TopBar = (setIsOpenBeneficio) => {
         )
     }
     return (
-        <div className={styles.container}>
-            <Link href="/#">
-                <a>
-                    <img
-                        src='/images/beneclub.svg'
-                        width={logoWidth}
-                        height={logoHeight}
-                        alt="beneclub"
-                    />
-                </a>
-            </Link>
-            {width <= 769 ?
-                <div className={styles.menu__hamburguer} onClick={toggleMenu}>
-                    <img
-                        src='/images/hamburguer.svg'
-                        width={20}
-                        height={20}
-                        alt="menu"
-                    />
-                    {isExtended ?
-                        <Fragment>{renderMenu()}</Fragment> : <Fragment></Fragment>}
-                </div>
-                :
-                <Fragment>{renderMenu()}</Fragment>
-            }
-        </div>
+        <Fragment>
+            <div className={styles.container}>
+                <Link href="/#">
+                    <a>
+                        <img
+                            src='/images/beneclub.svg'
+                            width={logoWidth}
+                            height={logoHeight}
+                            alt="beneclub"
+                        />
+                    </a>
+                </Link>
+                {width <= 769 ?
+                    <div className={styles.menu__hamburguer} onClick={toggleMenu}>
+                        <img
+                            src='/images/hamburguer.svg'
+                            width={20}
+                            height={20}
+                            alt="menu"
+                        />
+                        {isExtended ?
+                            <Fragment>{renderMenu()}</Fragment> : <Fragment></Fragment>}
+                    </div>
+                    :
+                    <Fragment>{renderMenu()}</Fragment>
+                }
+                
+            </div>
+            <ModalContacto isOpen={isOpen} setIsOpen={setIsOpen}/>
+            </Fragment>
     )
 }
 export default TopBar;
