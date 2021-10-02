@@ -251,6 +251,7 @@ export const ModalBeneficio = ({ isOpen, setIsOpen, categorias }) => {
           <div className={styles.row__doble}>
             <Fragment>
               <label>Mapa: </label><br />
+              <span className={styles.explicacion}>Ir a Google Mapsy seleccionar la ubiacación. Después Compartir/Incorporar un mapa/Copiar HTML, y pegar el contenido</span>
               <input
                 id='mapa'
                 name='mapa'
